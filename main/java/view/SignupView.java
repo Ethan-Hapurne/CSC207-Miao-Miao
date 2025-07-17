@@ -19,6 +19,7 @@ import javax.swing.event.DocumentListener;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.ViewManagerModel;
 
 /**
  * The View for the Signup Use Case.
@@ -27,6 +28,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final String viewName = "sign up";
 
     private final SignupViewModel signupViewModel;
+    private final ViewManagerModel viewManagerModel;
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
@@ -36,8 +38,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton cancel;
     private final JButton toLogin;
 
-    public SignupView(SignupViewModel signupViewModel) {
+    public SignupView(SignupViewModel signupViewModel, ViewManagerModel viewManagerModel) {
         this.signupViewModel = signupViewModel;
+        this.viewManagerModel = viewManagerModel;
         signupViewModel.addPropertyChangeListener(this);
 
         final JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
@@ -64,7 +67,50 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signUp)) {
                             final SignupState currentState = signupViewModel.getState();
-
+                            String password = currentState.getPassword();
+                            if (password == null || password.isEmpty()) {
+                                JOptionPane.showMessageDialog(
+                                    SignupView.this,
+                                    "Password cannot be blank.",
+                                    "Invalid Password",
+                                    JOptionPane.ERROR_MESSAGE
+                                );
+                                return;
+                            }
+                            String strength = getPasswordStrength(password);
+                            if ("weak".equals(strength)) {
+                                int result = JOptionPane.showConfirmDialog(
+                                    SignupView.this,
+                                    "Your password is weak. Do you want to use it anyway?",
+                                    "Weak Password",
+                                    JOptionPane.YES_NO_OPTION
+                                );
+                                if (result != JOptionPane.YES_OPTION) {
+                                    return;
+                                }
+                            } else if ("medium".equals(strength)) {
+                                Object[] options = {"Use Password", "Change Password"};
+                                int result = JOptionPane.showOptionDialog(
+                                    SignupView.this,
+                                    "Your password is medium strength. Do you want to reconsider?",
+                                    "Medium Password",
+                                    JOptionPane.DEFAULT_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE,
+                                    null,
+                                    options,
+                                    options[0]
+                                );
+                                if (result != 0) { // 0 = Use Password, 1 = Change Password
+                                    return;
+                                }
+                            } else if ("strong".equals(strength)) {
+                                JOptionPane.showMessageDialog(
+                                    SignupView.this,
+                                    "Your password is strong! Good job!",
+                                    "Strong Password",
+                                    JOptionPane.INFORMATION_MESSAGE
+                                );
+                            }
                             signupController.execute(
                                     currentState.getUsername(),
                                     currentState.getPassword(),
@@ -176,9 +222,24 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         });
     }
 
+    private String getPasswordStrength(String password) {
+        boolean hasLetter = password.matches(".*[a-zA-Z].*");
+        boolean hasDigit = password.matches(".*[0-9].*");
+        boolean hasSpecial = password.matches(".*[^a-zA-Z0-9].*");
+        if ((hasLetter && !hasDigit && !hasSpecial) || (!hasLetter && hasDigit && !hasSpecial)) {
+            return "weak";
+        } else if (hasLetter && hasDigit && !hasSpecial) {
+            return "medium";
+        } else if (hasLetter && hasDigit && hasSpecial) {
+            return "strong";
+        } else {
+            return "weak";
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent evt) {
-        JOptionPane.showMessageDialog(this, "Cancel not implemented yet.");
+        viewManagerModel.popViewOrClose();
     }
 
     @Override
