@@ -3,6 +3,7 @@ package interface_adapter.login;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.main_page.MainPageViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -14,25 +15,34 @@ public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewModel loginViewModel;
     private final LoggedInViewModel loggedInViewModel;
     private final ViewManagerModel viewManagerModel;
+    private final MainPageViewModel mainPageViewModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
                           LoggedInViewModel loggedInViewModel,
-                          LoginViewModel loginViewModel) {
+                          LoginViewModel loginViewModel,
+                          MainPageViewModel mainPageViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loggedInViewModel = loggedInViewModel;
         this.loginViewModel = loginViewModel;
+        this.mainPageViewModel = mainPageViewModel;
     }
 
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        // On success, switch to the logged in view.
 
-        final LoggedInState loggedInState = loggedInViewModel.getState();
-        loggedInState.setUsername(response.getUsername());
-        this.loggedInViewModel.setState(loggedInState);
-        this.loggedInViewModel.firePropertyChanged();
+//        // On success, switch to the logged in view.
+//
+//        final LoggedInState loggedInState = loggedInViewModel.getState();
+//        loggedInState.setUsername(response.getUsername());
+//        this.loggedInViewModel.setState(loggedInState);
+//        this.loggedInViewModel.firePropertyChanged();
+//
+//        this.viewManagerModel.setState(loggedInViewModel.getViewName());
 
-        this.viewManagerModel.pushView(loggedInViewModel.getViewName());
+        // On success, switch to the main page view.
+        this.mainPageViewModel.firePropertyChanged();
+        this.viewManagerModel.setState(mainPageViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
     }
 
     @Override
