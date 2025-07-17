@@ -88,7 +88,7 @@ public class AppBuilder {
      */
     public AppBuilder addSignupView() {
         signupViewModel = new SignupViewModel();
-        signupView = new SignupView(signupViewModel);
+        signupView = new SignupView(signupViewModel, viewManagerModel);
         cardPanel.add(signupView, signupView.getViewName());
         return this;
     }
@@ -99,7 +99,7 @@ public class AppBuilder {
      */
     public AppBuilder addLoginView() {
         loginViewModel = new LoginViewModel();
-        loginView = new LoginView(loginViewModel);
+        loginView = new LoginView(loginViewModel, viewManagerModel);
         cardPanel.add(loginView, loginView.getViewName());
         return this;
     }
@@ -210,8 +210,8 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(signupView.getViewName());
-        viewManagerModel.firePropertyChanged();
+        viewManagerModel.setMainFrame(application);
+        viewManagerModel.pushView(signupView.getViewName());
 
         return application;
     }
