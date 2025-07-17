@@ -21,6 +21,9 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.post_page.PostPageState;
+import interface_adapter.post_page.PostPageViewModel;
+import interface_adapter.main_page.MainPageViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -37,6 +40,8 @@ import view.LoggedInView;
 import view.LoginView;
 import view.SignupView;
 import view.ViewManager;
+import view.MainPageView;
+import view.PostPageView;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -67,6 +72,11 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private MainPageView mainPageView;
+    private MainPageViewModel mainPageViewModel;
+    private PostPageView postPageView;
+    private PostPageViewModel postPageViewModel;
+    private PostPageState postPageState;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -106,6 +116,28 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the Main Page View to the application.
+     * @return this builder
+     */
+    public AppBuilder addMainPageView() {
+        mainPageViewModel = new MainPageViewModel();
+        mainPageView = new MainPageView(mainPageViewModel);
+        cardPanel.add(mainPageView, mainPageView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Post Page View to the application.
+     * @return this builder
+     */
+    public AppBuilder addPostPageView() {
+        postPageViewModel = new PostPageViewModel();
+        postPageView = new PostPageView(postPageViewModel);
+        cardPanel.add(postPageView, postPageView.getViewName());
+        return this;
+    }
+
+    /**
      * Adds the Signup Use Case to the application.
      * @return this builder
      */
@@ -126,7 +158,7 @@ public class AppBuilder {
      */
     public AppBuilder addLoginUseCase() {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
+                loggedInViewModel, loginViewModel, mainPageViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
