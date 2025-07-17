@@ -67,7 +67,7 @@ public class MainPageView extends JPanel implements ActionListener, PropertyChan
         // Navigate to posts page
         // mainPageController.navigateToPostsPage();
     }
-
+//
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
