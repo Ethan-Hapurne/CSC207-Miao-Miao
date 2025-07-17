@@ -1,95 +1,69 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import interface_adapter.post_page.PostPageState;
+import interface_adapter.post_page.PostPageViewModel;
+
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import interface_adapter.post_page.PostPageViewModel;
-import interface_adapter.post_page.PostPageState;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class PostPageView extends JPanel implements ActionListener {
+public class PostPageView extends JPanel implements ActionListener, PropertyChangeListener {
+    private final String viewName = "post page";
 
-    private final JButton postButton;
-    private final JTextField searchField;
+    private final PostPageViewModel postPageViewModel;
+    private final JButton postsButton;
     private final JButton searchButton;
     private final JButton backButton;
 
-    private final JList<String> postList;
-    private final JTextArea contentArea;
-    private final JTextArea commentsArea;
+    public PostPageView(PostPageViewModel postPageViewModel) {
+        this.postPageViewModel = postPageViewModel;
+        this.postPageViewModel.addPropertyChangeListener(this);
 
-    public PostPageView() {
-        this.setLayout(new BorderLayout());
+        final JLabel title = new JLabel("Post Page Screen");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        final JPanel buttons = new JPanel();
 
-        postButton = new JButton("Post");
-        searchField = new JTextField(20);
-        searchButton = new JButton("Search");
-        backButton = new JButton("Back");
+        postsButton = new JButton("Posts");
+        buttons.add(postsButton);
+        postsButton.addActionListener(this);
 
-        topPanel.add(postButton);
-        topPanel.add(searchField);
-        topPanel.add(searchButton);
-        topPanel.add(backButton);
-
-        postButton.addActionListener(this);
+        searchButton = new JButton("search");
+        buttons.add(searchButton);
         searchButton.addActionListener(this);
+
+        backButton = new JButton("Back");
+        buttons.add(backButton);
         backButton.addActionListener(this);
 
-        this.add(topPanel, BorderLayout.NORTH);
-
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        listModel.addElement("Post A");
-        listModel.addElement("Post B");
-        listModel.addElement("Post C");
-
-        postList = new JList<>(listModel);
-        JScrollPane listScrollPane = new JScrollPane(postList);
-
-        contentArea = new JTextArea("Content shown here");
-        commentsArea = new JTextArea("Comments go here");
-        contentArea.setLineWrap(true);
-        contentArea.setWrapStyleWord(true);
-        commentsArea.setLineWrap(true);
-        commentsArea.setWrapStyleWord(true);
-
-        contentArea.setEditable(false);
-        commentsArea.setEditable(false);
-
-        JPanel rightPanel = new JPanel(new BorderLayout());
-        rightPanel.add(new JLabel("Content:"), BorderLayout.NORTH);
-        rightPanel.add(new JScrollPane(contentArea), BorderLayout.CENTER);
-        rightPanel.add(new JScrollPane(commentsArea), BorderLayout.SOUTH);
-
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, listScrollPane, rightPanel);
-        splitPane.setDividerLocation(200);
-
-        this.add(splitPane, BorderLayout.CENTER);
-
-        postList.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                String selected = postList.getSelectedValue();
-                contentArea.setText("Content for " + selected);
-                commentsArea.setText("Comments for " + selected);
-            }
-        });
+        this.add(title);
+        this.add(buttons);
     }
 
+    public String getViewName() {
+        return viewName;
+    }
+
+    /**
+     * @param evt the event to be processed
+     */
     @Override
-    public void actionPerformed(ActionEvent e) {
-        String command = e.getActionCommand();
-        switch (command) {
-            case "Post":
-                JOptionPane.showMessageDialog(this, "Post clicked");
-                break;
-            case "Search":
-                String query = searchField.getText();
-                JOptionPane.showMessageDialog(this, "Searching for: " + query);
-                break;
-            case "Back":
-                JOptionPane.showMessageDialog(this, "Back to main page");
-                break;
-        }
+    public void actionPerformed(ActionEvent evt) {
+        JOptionPane.showMessageDialog(this, evt.getActionCommand() + " clicked!");
+    }
+
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
     }
 }
