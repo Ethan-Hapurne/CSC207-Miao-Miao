@@ -18,6 +18,8 @@ public class Main {
                                             .addLoggedInView()
                                             .addSearchView()
                                             .addDashboardView()
+                                            .addMainPageView()
+                                            .addPostPageView()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()

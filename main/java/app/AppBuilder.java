@@ -27,6 +27,9 @@ import interface_adapter.search.SearchViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.post_page.PostPageState;
+import interface_adapter.post_page.PostPageViewModel;
+import interface_adapter.main_page.MainPageViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -56,6 +59,8 @@ import use_case.dashboard.DashboardInteractor;
 import use_case.dashboard.DashboardOutputBoundary;
 import use_case.dashboard.DashboardUserDataAccessInterface;
 import view.DashboardView;
+import view.MainPageView;
+import view.PostPageView;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -92,6 +97,11 @@ public class AppBuilder {
     private SearchViewModel searchViewModel;
     private DashboardView dashboardView;
     private DashboardViewModel dashboardViewModel;
+    private MainPageView mainPageView;
+    private MainPageViewModel mainPageViewModel;
+    private PostPageView postPageView;
+    private PostPageViewModel postPageViewModel;
+    private PostPageState postPageState;
 
     public AppBuilder() {
         // Initialize Firebase
@@ -141,6 +151,15 @@ public class AppBuilder {
         searchViewModel = new SearchViewModel();
         searchView = new SearchView(searchViewModel);
         cardPanel.add(searchView, searchView.getViewName());
+    }
+  
+     /* Adds the Main Page View to the application.
+     * @return this builder
+     */
+    public AppBuilder addMainPageView() {
+        mainPageViewModel = new MainPageViewModel();
+        mainPageView = new MainPageView(mainPageViewModel);
+        cardPanel.add(mainPageView, mainPageView.getViewName());
         return this;
     }
 
@@ -152,6 +171,17 @@ public class AppBuilder {
         dashboardViewModel = new DashboardViewModel();
         dashboardView = new DashboardView(dashboardViewModel);
         cardPanel.add(dashboardView, dashboardView.getViewName());
+      
+    }
+  
+     /**
+     * Adds the Post Page View to the application.
+     * @return this builder
+     */
+    public AppBuilder addPostPageView() {
+        postPageViewModel = new PostPageViewModel();
+        postPageView = new PostPageView(postPageViewModel);
+        cardPanel.add(postPageView, postPageView.getViewName());
         return this;
     }
 
@@ -176,7 +206,7 @@ public class AppBuilder {
      */
     public AppBuilder addLoginUseCase() {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
+                loggedInViewModel, loginViewModel, mainPageViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
