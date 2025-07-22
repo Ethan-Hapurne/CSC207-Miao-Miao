@@ -1,0 +1,17 @@
+Index: homework-5.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<module version=\"4\">\n  <component name=\"AdditionalModuleElements\">\n    <content url=\"file://$MODULE_DIR$\" dumb=\"true\">\n      <sourceFolder url=\"file://$MODULE_DIR$/main/java\" isTestSource=\"false\" />\n    </content>\n  </component>\n</module>
+===================================================================
+diff --git a/homework-5.iml b/homework-5.iml
+--- a/homework-5.iml	(revision 2464bb34945ff7277545ec16f38bf975a00749c3)
++++ b/homework-5.iml	(date 1753150947110)
+@@ -5,4 +5,7 @@
+       <sourceFolder url="file://$MODULE_DIR$/main/java" isTestSource="false" />
+     </content>
+   </component>
++  <component name="CheckStyle-IDEA-Module" serialisationVersion="2">
++    <option name="activeLocationsIds" />
++  </component>
+ </module>
+\ No newline at end of file
