@@ -304,7 +304,7 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
         detailsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         detailsPanel.setBackground(Color.WHITE);
 
-        JLabel authorLabel = new JLabel("By: " + post.getAuthor());
+        JLabel authorLabel = new JLabel("By " + post.getAuthor());
         JLabel typeLabel = new JLabel(post.isLost() ? "LOST" : "FOUND");
         typeLabel.setForeground(post.isLost() ? Color.RED : Color.GREEN);
         typeLabel.setFont(new Font("Arial", Font.BOLD, 12));

@@ -172,7 +172,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
         detailsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         detailsPanel.setBackground(Color.WHITE);
         
-        JLabel authorLabel = new JLabel("By: " + post.getAuthor());
+        JLabel authorLabel = new JLabel(post.getAuthor());
         JLabel locationLabel = new JLabel("Location: " + post.getLocation());
         JLabel typeLabel = new JLabel(post.isLost() ? "LOST" : "FOUND");
         typeLabel.setForeground(post.isLost() ? Color.RED : Color.GREEN);

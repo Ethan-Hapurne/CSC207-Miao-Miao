@@ -95,6 +95,7 @@ public class AppBuilder {
     private SearchViewModel searchViewModel;
     private DashboardView dashboardView;
     private DashboardViewModel dashboardViewModel;
+    private DashboardController dashboardController;
 
     public AppBuilder() {
         // Initialize Firebase
@@ -133,6 +134,10 @@ public class AppBuilder {
         loggedInViewModel = new LoggedInViewModel();
         loggedInView = new LoggedInView(loggedInViewModel, viewManagerModel);
         cardPanel.add(loggedInView, loggedInView.getViewName());
+        // Wire dashboardController if it exists
+        if (dashboardController != null) {
+            loggedInView.setDashboardController(dashboardController);
+        }
         return this;
     }
 
@@ -163,8 +168,11 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSignupUseCase() {
+        if (dashboardController == null) {
+            addDashboardUseCase();
+        }
         final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
-                signupViewModel, loginViewModel);
+                signupViewModel, loginViewModel, dashboardController);
         final SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 userDataAccessObject, signupOutputBoundary, userFactory);
 
@@ -178,8 +186,11 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoginUseCase() {
+        if (dashboardController == null) {
+            addDashboardUseCase();
+        }
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
+                loggedInViewModel, loginViewModel, dashboardController);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
@@ -240,8 +251,12 @@ public class AppBuilder {
     public AppBuilder addDashboardUseCase() {
         final DashboardOutputBoundary dashboardOutputBoundary = new DashboardPresenter(dashboardViewModel);
         final DashboardInputBoundary dashboardInteractor = new DashboardInteractor(dashboardDataAccessObject, dashboardOutputBoundary);
-        final DashboardController dashboardController = new DashboardController(dashboardInteractor, viewManagerModel);
+        this.dashboardController = new DashboardController(dashboardInteractor, viewManagerModel);
         dashboardView.setDashboardController(dashboardController);
+        // Wire into loggedInView if it exists
+        if (loggedInView != null) {
+            loggedInView.setDashboardController(dashboardController);
+        }
         return this;
     }
 

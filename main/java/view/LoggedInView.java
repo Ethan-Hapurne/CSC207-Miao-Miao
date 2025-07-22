@@ -18,6 +18,7 @@ import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.dashboard.DashboardController;
 
 /**
  * The View for when the user is logged into the program.
@@ -30,6 +31,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private ChangePasswordController changePasswordController;
     private LogoutController logoutController;
     private ViewManagerModel viewManagerModel;
+    private DashboardController dashboardController;
 
     private final JLabel username;
 
@@ -119,6 +121,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         dashboardButton.addActionListener(evt -> {
             if (evt.getSource().equals(dashboardButton)) {
+                final LoggedInState currentState = loggedInViewModel.getState();
+                if (dashboardController != null) {
+                    dashboardController.setCurrentUser(currentState.getUsername());
+                }
                 viewManagerModel.pushView("dashboard");
             }
         });
@@ -161,5 +167,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
+    }
+
+    public void setDashboardController(DashboardController dashboardController) {
+        this.dashboardController = dashboardController;
     }
 }
