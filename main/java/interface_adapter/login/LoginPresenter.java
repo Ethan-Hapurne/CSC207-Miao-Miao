@@ -7,6 +7,8 @@ import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 import interface_adapter.dashboard.DashboardController;
 
+// SESSION CHANGE: Sets current user in DashboardController after login. See also: FirebasePostDataAccessObject, DashboardInteractor, DashboardView, SignupPresenter, LoggedInView, AppBuilder.
+
 /**
  * The Presenter for the Login Use Case.
  */
@@ -29,7 +31,7 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        // On success, switch to the logged in view.
+        // SESSION CHANGE: Set current user in DashboardController after login
         dashboardController.setCurrentUser(response.getUsername());
         final LoggedInState loggedInState = loggedInViewModel.getState();
         loggedInState.setUsername(response.getUsername());

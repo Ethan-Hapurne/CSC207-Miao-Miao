@@ -119,8 +119,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
+        // SESSION CHANGE: Sets current user in DashboardController before switching to dashboard. See also: FirebasePostDataAccessObject, DashboardInteractor, DashboardView, LoginPresenter, SignupPresenter, AppBuilder.
         dashboardButton.addActionListener(evt -> {
             if (evt.getSource().equals(dashboardButton)) {
+                // SESSION CHANGE: Set current user in DashboardController before switching to dashboard
                 final LoggedInState currentState = loggedInViewModel.getState();
                 if (dashboardController != null) {
                     dashboardController.setCurrentUser(currentState.getUsername());

@@ -137,6 +137,7 @@ public class FirebasePostDataAccessObject implements
     
     @Override
     public List<Post> searchPostsByCriteria(String title, String location, List<String> tags, Boolean isLost) {
+        // SESSION CHANGE: If all criteria are blank, return all posts sorted alphabetically by title
         List<Post> allPosts = getAllPosts();
         List<Post> matchingPosts = new ArrayList<>();
 
@@ -146,7 +147,6 @@ public class FirebasePostDataAccessObject implements
                            (isLost == null);
 
         if (allBlank) {
-            // Return all posts sorted alphabetically by title
             allPosts.sort(Comparator.comparing(Post::getTitle, String.CASE_INSENSITIVE_ORDER));
             return allPosts;
         }

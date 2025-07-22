@@ -3,6 +3,8 @@ package use_case.dashboard;
 import entity.Post;
 import java.util.List;
 
+// SESSION CHANGE: Dashboard search returns all posts alphabetically if query is blank. See also: FirebasePostDataAccessObject, DashboardView, LoginPresenter, SignupPresenter, LoggedInView, AppBuilder.
+
 /**
  * Interactor for the dashboard use case.
  * Implements the business logic for dashboard operations.
@@ -28,12 +30,12 @@ public class DashboardInteractor implements DashboardInputBoundary {
                     break;
 
                 case "search_posts":
+                    // SESSION CHANGE: If search query is blank, return all posts sorted alphabetically by title
                     if (dashboardInputData.getSearchQuery() != null && !dashboardInputData.getSearchQuery().trim().isEmpty()) {
                         List<Post> searchResults = dashboardDataAccessObject.searchPosts(dashboardInputData.getSearchQuery().trim());
                         DashboardOutputData searchOutputData = new DashboardOutputData(searchResults);
                         dashboardOutputBoundary.prepareSuccessView(searchOutputData);
                     } else {
-                        // If search query is blank, return all posts sorted alphabetically by title
                         List<Post> allPosts = dashboardDataAccessObject.getAllPosts();
                         allPosts.sort(java.util.Comparator.comparing(Post::getTitle, String.CASE_INSENSITIVE_ORDER));
                         DashboardOutputData allPostsOutputData = new DashboardOutputData(allPosts);
