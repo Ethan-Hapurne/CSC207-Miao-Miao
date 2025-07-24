@@ -1,5 +1,7 @@
 package view;
 
+import data_access.FirebaseUserDataAccessObject;
+import entity.Comment;
 import entity.Post;
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardState;
@@ -9,12 +11,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The View for the Dashboard (Piazza-like platform).
@@ -35,10 +41,26 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
 
     private DashboardController dashboardController;
 
+    // SESSION CHANGE: In-memory nested comment storage for demo
+    private final Map<Integer, List<CommentNode>> postComments = new HashMap<>();
+    private int commentIdCounter = 1;
+    private static class CommentNode {
+        String username;
+        String content;
+        int likes;
+        int id;
+        List<CommentNode> replies = new ArrayList<>();
+        CommentNode(String username, String content, int id) {
+            this.username = username;
+            this.content = content;
+            this.likes = 0;
+            this.id = id;
+        }
+    }
+
     public DashboardView(DashboardViewModel dashboardViewModel) {
         this.dashboardViewModel = dashboardViewModel;
         this.dashboardViewModel.addPropertyChangeListener(this);
-
         // Set up the main layout
         this.setLayout(new BorderLayout());
 
@@ -275,6 +297,16 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
         postsPanel.repaint();
     }
 
+    private static String formatTimestamp(String timestamp) {
+        try {
+            LocalDateTime dt = LocalDateTime.parse(timestamp);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a");
+            return dt.format(formatter);
+        } catch (DateTimeParseException | NullPointerException e) {
+            return timestamp; // fallback to original if parse fails
+        }
+    }
+
     private JPanel createPostListItem(Post post) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -310,8 +342,7 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
         typeLabel.setForeground(post.isLost() ? Color.RED : Color.GREEN);
         typeLabel.setFont(new Font("Arial", Font.BOLD, 12));
 
-        JLabel timeLabel = new JLabel("Posted: " +
-            post.getTimestamp());
+        JLabel timeLabel = new JLabel("Posted: " + formatTimestamp(post.getTimestamp()));
 
         detailsPanel.add(authorLabel);
         detailsPanel.add(typeLabel);
@@ -338,50 +369,172 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
         postDetailPanel.removeAll();
         postDetailPanel.setLayout(new BorderLayout());
 
-        // Title
+        // Title as bold heading (increase from 22 to 28)
         JLabel titleLabel = new JLabel(post.getTitle());
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Content
-        JTextArea contentArea = new JTextArea(post.getDescription());
-        contentArea.setLineWrap(true);
-        contentArea.setWrapStyleWord(true);
-        contentArea.setEditable(false);
-        contentArea.setBackground(postDetailPanel.getBackground());
-        JScrollPane contentScrollPane = new JScrollPane(contentArea);
+        // Details panel (vertical)
+        JPanel detailsPanel = new JPanel();
+        detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
+        detailsPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 
-        // Details panel
-        JPanel detailsPanel = new JPanel(new GridLayout(0, 2, 10, 5));
-        detailsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        // Base font size for details: 15 (25% bigger than 12)
+        Font detailFont = new Font("Arial", Font.PLAIN, 15);
+        Font labelFont = new Font("Arial", Font.BOLD, 15);
 
-        detailsPanel.add(new JLabel("Author:"));
-        detailsPanel.add(new JLabel(post.getAuthor()));
+        // Content/Description
+        JLabel contentLabel = new JLabel("Content: " + post.getDescription());
+        contentLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        contentLabel.setFont(detailFont);
+        detailsPanel.add(contentLabel);
+        detailsPanel.add(Box.createVerticalStrut(8));
 
-        detailsPanel.add(new JLabel("Location:"));
-        detailsPanel.add(new JLabel(post.getLocation()));
+        // Tags
+        String tags = (post.getTags() != null && !post.getTags().isEmpty()) ? String.join(", ", post.getTags()) : "None";
+        JLabel tagsLabel = new JLabel("Tags: " + tags);
+        tagsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        tagsLabel.setForeground(Color.BLUE);
+        tagsLabel.setFont(detailFont);
+        detailsPanel.add(tagsLabel);
+        detailsPanel.add(Box.createVerticalStrut(8));
 
-        detailsPanel.add(new JLabel("Type:"));
-        JLabel typeLabel = new JLabel(post.isLost() ? "LOST" : "FOUND");
+        // Location
+        JLabel locationLabel = new JLabel("Location: " + post.getLocation());
+        locationLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        locationLabel.setFont(detailFont);
+        detailsPanel.add(locationLabel);
+        detailsPanel.add(Box.createVerticalStrut(8));
+
+        // Type (LOST/FOUND) (increase from 14 to 18)
+        JLabel typeLabel = new JLabel("Type: " + (post.isLost() ? "LOST" : "FOUND"));
+        typeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         typeLabel.setForeground(post.isLost() ? Color.RED : Color.GREEN);
-        typeLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        typeLabel.setFont(new Font("Arial", Font.BOLD, 18));
         detailsPanel.add(typeLabel);
+        detailsPanel.add(Box.createVerticalStrut(8));
 
-        detailsPanel.add(new JLabel("Posted:"));
-        detailsPanel.add(new JLabel(post.getTimestamp()));
+        // Posted date/time
+        JLabel postedLabel = new JLabel("Posted: " + formatTimestamp(post.getTimestamp()));
+        postedLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        postedLabel.setFont(detailFont);
+        detailsPanel.add(postedLabel);
+        detailsPanel.add(Box.createVerticalStrut(8));
 
-        detailsPanel.add(new JLabel("Tags:"));
-        detailsPanel.add(new JLabel(String.join(", ", post.getTags())));
+        // Author
+        JLabel authorLabel = new JLabel("Author: " + post.getAuthor());
+        authorLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        authorLabel.setFont(detailFont);
+        detailsPanel.add(authorLabel);
+        detailsPanel.add(Box.createVerticalStrut(8));
 
-        detailsPanel.add(new JLabel("Likes:"));
-        detailsPanel.add(new JLabel(String.valueOf(post.getNumberOfLikes())));
+        // Likes
+        JLabel likesLabel = new JLabel("Likes: " + post.getNumberOfLikes());
+        likesLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        likesLabel.setFont(detailFont);
+        detailsPanel.add(likesLabel);
 
+        // COMMENT SECTION (in-memory, as before)
+        JPanel commentSection = new JPanel(new BorderLayout());
+        commentSection.setBorder(BorderFactory.createTitledBorder("Comments"));
+        List<CommentNode> comments = postComments.getOrDefault(post.getPostID(), new ArrayList<>());
+        JPanel commentsListPanel = new JPanel();
+        commentsListPanel.setLayout(new BoxLayout(commentsListPanel, BoxLayout.Y_AXIS));
+        for (CommentNode comment : comments) {
+            commentsListPanel.add(createCommentPanel(comment, post.getPostID(), 0));
+            commentsListPanel.add(Box.createVerticalStrut(8));
+        }
+        JScrollPane commentsScrollPane = new JScrollPane(commentsListPanel);
+        commentsScrollPane.setPreferredSize(new java.awt.Dimension(400, 220));
+        commentsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        commentsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        commentSection.add(commentsScrollPane, BorderLayout.CENTER);
+        // Input bar (always at bottom)
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        JTextField commentInput = new JTextField();
+        JButton postCommentButton = new JButton("Post Comment");
+        inputPanel.add(commentInput, BorderLayout.CENTER);
+        inputPanel.add(postCommentButton, BorderLayout.EAST);
+        inputPanel.setBorder(BorderFactory.createTitledBorder("Add a comment"));
+        commentSection.add(inputPanel, BorderLayout.SOUTH);
+        // Post comment action (simulate username as 'UserX')
+        postCommentButton.addActionListener(e -> {
+            String text = commentInput.getText().trim();
+            if (!text.isEmpty()) {
+                String username = "User" + ((int)(Math.random()*1000));
+                CommentNode newComment = new CommentNode(username, text, commentIdCounter++);
+                postComments.computeIfAbsent(post.getPostID(), k -> new ArrayList<>()).add(newComment);
+                showPostDetails(post); // Refresh details to show new comment
+            }
+        });
+        // Layout: details at top, comment section (comments + input bar) at bottom
         postDetailPanel.add(titleLabel, BorderLayout.NORTH);
-        postDetailPanel.add(contentScrollPane, BorderLayout.CENTER);
-        postDetailPanel.add(detailsPanel, BorderLayout.SOUTH);
-
+        postDetailPanel.add(detailsPanel, BorderLayout.CENTER);
+        postDetailPanel.add(commentSection, BorderLayout.SOUTH);
         postDetailPanel.revalidate();
         postDetailPanel.repaint();
+    }
+    // Recursive panel for a comment and its replies
+    private JPanel createCommentPanel(CommentNode comment, int postId, int indentLevel) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(0, indentLevel * 30, 0, 0));
+        JLabel userLabel = new JLabel(comment.username);
+        userLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        panel.add(userLabel);
+        JLabel contentLabel = new JLabel(comment.content);
+        contentLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        panel.add(contentLabel);
+        JPanel actions = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        JButton likeButton = new JButton("Like (" + comment.likes + ")");
+        JButton replyButton = new JButton("Reply");
+        actions.add(likeButton);
+        actions.add(Box.createHorizontalStrut(8));
+        actions.add(replyButton);
+        panel.add(actions);
+        likeButton.addActionListener(e -> {
+            comment.likes++;
+            showPostDetails(findPostById(postId));
+        });
+        replyButton.addActionListener(e -> {
+            JTextField replyInput = new JTextField();
+            int result = JOptionPane.showConfirmDialog(panel, replyInput, "Reply to " + comment.username, JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                String replyText = replyInput.getText().trim();
+                if (!replyText.isEmpty()) {
+                    String username = "User" + ((int)(Math.random()*1000));
+                    CommentNode reply = new CommentNode(username, replyText, commentIdCounter++);
+                    comment.replies.add(reply);
+                    showPostDetails(findPostById(postId));
+                }
+            }
+        });
+        for (CommentNode reply : comment.replies) {
+            panel.add(createCommentPanel(reply, postId, indentLevel + 1));
+        }
+        return panel;
+    }
+
+    // Helper to find a post by ID (for demo, just search the current list)
+    private Post findPostById(int postId) {
+        for (Component comp : postsPanel.getComponents()) {
+            if (comp instanceof JPanel) {
+                JPanel p = (JPanel) comp;
+                for (Component c : p.getComponents()) {
+                    if (c instanceof JLabel) {
+                        JLabel l = (JLabel) c;
+                        try {
+                            if (Integer.parseInt(l.getText()) == postId) {
+                                return new Post(postId, "", "", new ArrayList<>(), java.time.LocalDateTime.now(), "", "", "", true, 0, new HashMap<>());
+                            }
+                        } catch (NumberFormatException ignored) {}
+                    }
+                }
+            }
+        }
+        // Fallback: return a dummy post
+        return new Post(postId, "", "", new ArrayList<>(), java.time.LocalDateTime.now(), "", "", "", true, 0, new HashMap<>());
     }
 
     private void updatePostDetails(Post post) {

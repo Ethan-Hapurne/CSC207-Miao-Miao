@@ -1,6 +1,7 @@
 data_access/FirebaseUserDataAccessObject$3.class
 view/LoginView.class
 entity/CommonUserFactory.class
+data_access/FirebasePostDataAccessObject$6.class
 use_case/change_password/ChangePasswordUserDataAccessInterface.class
 view/SearchView$1.class
 interface_adapter/ViewManagerModel.class
@@ -23,6 +24,7 @@ interface_adapter/change_password/LoggedInViewModel.class
 view/LoggedInView$1.class
 use_case/change_password/ChangePasswordOutputData.class
 view/DashboardView$2.class
+data_access/FirebasePostDataAccessObject$6$1.class
 use_case/dashboard/DashboardInputBoundary.class
 interface_adapter/search/SearchPresenter.class
 interface_adapter/signup/SignupPresenter.class
@@ -50,6 +52,7 @@ use_case/dashboard/DashboardOutputData.class
 use_case/login/LoginInteractor.class
 use_case/signup/SignupUserDataAccessInterface.class
 use_case/search/SearchOutputData.class
+data_access/FirebasePostDataAccessObject$4.class
 use_case/logout/LogoutInputData.class
 use_case/dashboard/DashboardInputData.class
 use_case/login/LoginInputData.class
@@ -60,6 +63,7 @@ use_case/change_password/ChangePasswordOutputBoundary.class
 use_case/signup/SignupInputBoundary.class
 view/SignupView.class
 view/LoginView$3.class
+data_access/FirebasePostDataAccessObject$5.class
 view/DashboardView.class
 interface_adapter/dashboard/DashboardViewModel.class
 view/LabelTextPanel.class
@@ -75,6 +79,7 @@ use_case/login/LoginUserDataAccessInterface.class
 view/LoggedInView.class
 interface_adapter/signup/SignupViewModel.class
 data_access/FirebasePostDataAccessObject.class
+view/DashboardView$CommentNode.class
 use_case/change_password/ChangePasswordInputBoundary.class
 view/LoginView$2.class
 interface_adapter/search/SearchState.class
@@ -97,5 +102,6 @@ use_case/dashboard/DashboardInteractor.class
 data_access/FirebaseConfig.class
 data_access/InMemoryUserDataAccessObject.class
 use_case/login/LoginOutputData.class
+data_access/FirebasePostDataAccessObject$5$1.class
 app/AppBuilder.class
 use_case/logout/LogoutOutputBoundary.class

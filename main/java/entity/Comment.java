@@ -1,35 +1,41 @@
 package entity;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Represents a comment on a post.
- */
 public class Comment {
-    private final int commentID;
-    private final String content;
-    private final String author;
-    private final LocalDateTime timestamp;
-    private final int numberOfLikes;
+    private String id;
+    private String username;
+    private String content;
+    private int likes;
+    private List<Comment> replies;
 
-    public Comment(int commentID, String content, String author, LocalDateTime timestamp, int numberOfLikes) {
-        this.commentID = commentID;
+    public Comment() {
+        // Required for Firebase
+    }
+
+    public Comment(String id, String username, String content) {
+        this.id = id;
+        this.username = username;
         this.content = content;
-        this.author = author;
-        this.timestamp = timestamp;
-        this.numberOfLikes = numberOfLikes;
+        this.likes = 0;
+        this.replies = new ArrayList<>();
     }
 
-    // Getters
-    public int getCommentID() { return commentID; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
     public String getContent() { return content; }
-    public String getAuthor() { return author; }
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public int getNumberOfLikes() { return numberOfLikes; }
+    public void setContent(String content) { this.content = content; }
 
-    @Override
-    public String toString() {
-        return String.format("Comment{id=%d, author='%s', content='%s'}", 
-                           commentID, author, content.substring(0, Math.min(content.length(), 50)));
-    }
+    public int getLikes() { return likes; }
+    public void setLikes(int likes) { this.likes = likes; }
+    public void like() { this.likes++; }
+
+    public List<Comment> getReplies() { return replies; }
+    public void setReplies(List<Comment> replies) { this.replies = replies; }
+    public void addReply(Comment reply) { this.replies.add(reply); }
 } 

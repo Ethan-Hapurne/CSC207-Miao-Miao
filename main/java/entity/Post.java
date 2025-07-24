@@ -22,6 +22,7 @@ public class Post {
     private boolean isLost;
     private int numberOfLikes;
     private Map<Integer, String> reactions;
+    private List<Comment> comments;
     
     // Default constructor required for Firebase
     public Post() {}
@@ -75,4 +76,7 @@ public class Post {
     
     public Map<Integer, String> getReactions() { return reactions; }
     public void setReactions(Map<Integer, String> reactions) { this.reactions = reactions; }
+
+    public List<Comment> getComments() { return comments; }
+    public void setComments(List<Comment> comments) { this.comments = comments; }
 } 

@@ -79,9 +79,10 @@ public class AppBuilder {
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // thought question: is the hard dependency below a problem?
-    private final FirebaseUserDataAccessObject userDataAccessObject = new FirebaseUserDataAccessObject();
+    private final FirebasePostDataAccessObject firebasePostDataAccessObject = new FirebasePostDataAccessObject();
     // private final DBUserDataAccessObject userDataAccessObject = new DBUserDataAccessObject(userFactory);
     // private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    private final FirebaseUserDataAccessObject userDataAccessObject = new FirebaseUserDataAccessObject();
     private final SearchUserDataAccessInterface postDataAccessObject = new FirebasePostDataAccessObject();
     private final DashboardUserDataAccessInterface dashboardDataAccessObject = new FirebasePostDataAccessObject();
     

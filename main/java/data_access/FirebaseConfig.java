@@ -4,6 +4,8 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.FirestoreOptions;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.util.Properties;
 public class FirebaseConfig {
     private static FirebaseDatabase database;
     private static boolean initialized = false;
+    private static Firestore firestore;
     
     public static void initializeFirebase() {
         if (initialized) {
@@ -54,6 +57,12 @@ public class FirebaseConfig {
             database = FirebaseDatabase.getInstance();
             initialized = true;
             
+            // Firestore initialization
+            firestore = FirestoreOptions.getDefaultInstance().toBuilder()
+                    .setProjectId(projectId)
+                    .build()
+                    .getService();
+            
             System.out.println("Firebase initialized successfully for project: " + projectId);
         } catch (IOException e) {
             System.err.println("Error loading Firebase service account: " + e.getMessage());
@@ -73,5 +82,12 @@ public class FirebaseConfig {
     
     public static boolean isInitialized() {
         return initialized && database != null;
+    }
+
+    public static Firestore getFirestore() {
+        if (!initialized) {
+            initializeFirebase();
+        }
+        return firestore;
     }
 } 
