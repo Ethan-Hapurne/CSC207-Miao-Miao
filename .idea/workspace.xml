@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cee90c25-e7e9-472e-92f4-eb352449f6c4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/target/classes/use_case/search/util/FuzzyMatchHelper$PostWithScore.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/app/use_case/search/SearchInteractorTest$DummySearchPresenter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/app/use_case/search/SearchInteractorTest$FakeSearchDAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/use_case/search/util/FuzzyMatchHelperTest.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/test/java/app/use_case/search/util/FuzzyMatchHelperTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/firebase-config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/firebase-config.properties" afterDir="false" />
@@ -36,6 +40,7 @@
       <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data_access/SearchDataAccessMemory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/SearchDataAccessMemory.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/interface_adapter/search/SearchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapter/search/SearchController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/interface_adapter/search/SearchPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapter/search/SearchPresenter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/interface_adapter/search/SearchState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapter/search/SearchState.class" afterDir="false" />
@@ -50,6 +55,9 @@
       <change beforePath="$PROJECT_DIR$/target/classes/view/SearchView$2.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/view/SearchView$3.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/view/SearchView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/SearchView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/app/use_case/search/SearchInteractorTest$FakeDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/app/use_case/search/SearchInteractorTest$FakePresenter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/app/use_case/search/SearchInteractorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/app/use_case/search/SearchInteractorTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/java/app/use_case/search/SearchInteractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/java/app/use_case/search/SearchInteractorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
