@@ -4,6 +4,7 @@ import com.google.firebase.database.*;
 import entity.Post;
 import use_case.dashboard.DashboardUserDataAccessInterface;
 import use_case.search.SearchUserDataAccessInterface;
+import use_case.search.util.FuzzyMatchHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -191,6 +192,7 @@ public class FirebasePostDataAccessObject implements
 
     @Override
     public List<Post> fuzzySearch(String query) {
-        throw new UnsupportedOperationException("Fuzzy search is not supported in FirebasePostDataAccessObject.");
+        List<Post> allPosts = getAllPosts();
+        return FuzzyMatchHelper.fuzzyMatchPosts(allPosts, query);
     }
 }

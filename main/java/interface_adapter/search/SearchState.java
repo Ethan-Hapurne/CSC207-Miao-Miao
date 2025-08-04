@@ -43,4 +43,13 @@ public class SearchState {
     public void setLoading(boolean loading) {
         this.isLoading = loading;
     }
-} 
+
+    // Add these to support SearchPresenter
+    public void setPosts(List<Post> posts) {
+        this.setSearchResults(posts);
+    }
+
+    public void setError(String error) {
+        this.setSearchError(error);
+    }
+}

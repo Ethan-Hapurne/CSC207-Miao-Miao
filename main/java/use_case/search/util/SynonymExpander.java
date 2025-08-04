@@ -3,45 +3,65 @@ package use_case.search.util;
 import java.util.*;
 
 public class SynonymExpander {
-    private static final Map<String, List<String>> synonymDict = new HashMap<>();
+    private static final Map<String, Set<String>> synonymGraph = new HashMap<>();
 
     static {
-        // ----- Electronics -----
-        synonymDict.put("laptop", Arrays.asList("notebook", "macbook", "computer", "pc", "comp", "computor", "loptop"));
-        synonymDict.put("phone", Arrays.asList("mobile", "smartphone", "cell", "cellphone", "iphone", "android", "phn", "moblie"));
-        synonymDict.put("tablet", Arrays.asList("ipad", "tab", "android tablet", "tabllet"));
-        synonymDict.put("earbuds", Arrays.asList("earphones", "headphones", "airpods", "earpods", "headsets", "buds"));
-        synonymDict.put("charger", Arrays.asList("cable", "cord", "usb", "power adapter", "chargr", "chager"));
-        synonymDict.put("watch", Arrays.asList("smartwatch", "fitbit", "applewatch", "wacth"));
-
-        // ----- Personal Items -----
-        synonymDict.put("wallet", Arrays.asList("purse", "billfold", "card holder", "walet", "wallt"));
-        synonymDict.put("keys", Arrays.asList("keychain", "housekey", "car key", "room key", "keyz"));
-        synonymDict.put("bag", Arrays.asList("backpack", "tote", "purse", "handbag", "satchel", "bckpack", "bakpak"));
-        synonymDict.put("id card", Arrays.asList("student card", "utorid", "identification", "license", "ID", "id", "idd"));
-        synonymDict.put("passport", Arrays.asList("travel document", "passprt", "pasport"));
-
-        // ----- Clothing and Accessories -----
-        synonymDict.put("jacket", Arrays.asList("coat", "hoodie", "windbreaker", "jaket", "jakit"));
-        synonymDict.put("glasses", Arrays.asList("spectacles", "shades", "sunglasses", "eyeglasses", "glass"));
-        synonymDict.put("hat", Arrays.asList("cap", "beanie", "bucket hat"));
-        synonymDict.put("scarf", Arrays.asList("muffler"));
-        synonymDict.put("umbrella", Arrays.asList("brolly", "umbrlla"));
-
-        // ----- Study Supplies -----
-        synonymDict.put("notebook", Arrays.asList("journal", "pad", "book"));
-        synonymDict.put("pen", Arrays.asList("pencil", "marker", "highlighter", "stylus", "writing tool"));
-        synonymDict.put("textbook", Arrays.asList("coursebook", "txtbook", "cbook"));
-
-        // ----- Cards -----
-        synonymDict.put("credit card", Arrays.asList("bank card", "visa", "mastercard", "debit card", "ccard"));
-        synonymDict.put("student card", Arrays.asList("id", "tcard", "utorid", "campus card"));
+        addSynonyms("laptop", "macbook", "computer", "pc");
+        addSynonyms("phone", "mobile", "smartphone", "cellphone");
+        addSynonyms("tablet", "ipad", "android tablet");
+        addSynonyms("earbuds", "earphones", "headphones");
+        addSynonyms("charger", "charging cable", "power adapter");
+        addSynonyms("watch", "smartwatch", "wristwatch");
+        addSynonyms("wallet", "billfold", "cardholder");
+        addSynonyms("keys", "keychain", "car keys");
+        addSynonyms("bag", "backpack", "tote", "handbag");
+        addSynonyms("id card", "identification", "student id");
+        addSynonyms("passport", "travel document");
+        addSynonyms("jacket", "coat", "windbreaker");
+        addSynonyms("glasses", "eyeglasses", "sunglasses");
+        addSynonyms("hat", "cap", "beanie");
+        addSynonyms("scarf", "neck warmer");
+        addSynonyms("umbrella", "rain umbrella");
+        addSynonyms("notebook", "notepad", "writing pad");
+        addSynonyms("pen", "ballpoint", "marker");
+        addSynonyms("textbook", "course book");
+        addSynonyms("credit card", "debit card", "payment card");
+        addSynonyms("student card", "campus id");
+        addSynonyms("bottle", "water bottle", "tumbler");
+        addSynonyms("calculator", "scientific calculator");
     }
 
-    public static List<String> expand(String word) {
-        List<String> result = new ArrayList<>();
-        result.add(word.toLowerCase());
-        result.addAll(synonymDict.getOrDefault(word.toLowerCase(), new ArrayList<>()));
-        return result;
+    public static List<String> expand(String term) {
+        if (term == null) {
+            return Collections.emptyList();
+        }
+
+        String normalized = term.trim().toLowerCase();
+        Set<String> results = new HashSet<>();
+        results.add(normalized);
+
+        if (synonymGraph.containsKey(normalized)) {
+            results.addAll(synonymGraph.get(normalized));
+        }
+
+        return new ArrayList<>(results);
+    }
+
+    private static void addSynonyms(String baseTerm, String... synonyms) {
+        Set<String> termGroup = new HashSet<>();
+        termGroup.add(baseTerm.toLowerCase());
+
+        for (String synonym : synonyms) {
+            termGroup.add(synonym.toLowerCase());
+        }
+
+        for (String term : termGroup) {
+            synonymGraph.computeIfAbsent(term, k -> new HashSet<>());
+
+            Set<String> connections = new HashSet<>(termGroup);
+            connections.remove(term);
+
+            synonymGraph.get(term).addAll(connections);
+        }
     }
 }

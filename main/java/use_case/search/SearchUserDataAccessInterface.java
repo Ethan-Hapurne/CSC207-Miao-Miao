@@ -3,32 +3,9 @@ package use_case.search;
 import entity.Post;
 import java.util.List;
 
-/**
- * Interface for data access operations related to search functionality.
- */
 public interface SearchUserDataAccessInterface {
-    /**
-     * Searches posts by query string.
-     * @param query the search query
-     * @return List of matching posts
-     */
+    List<Post> getAllPosts();
     List<Post> searchPosts(String query);
-
-    /**
-     * Searches posts by specific criteria.
-     * @param title title to search for
-     * @param location location to search for
-     * @param tags tags to search for
-     * @param isLost whether to search for lost or found items
-     * @return List of matching posts
-     */
-    List<Post> searchPostsByCriteria(String title, String location, List<String> tags, Boolean isLost);
-
-    /**
-     * Performs fuzzy search on posts based on the query.
-     * Includes typo tolerance and synonym expansion.
-     * @param query the fuzzy query
-     * @return List of fuzzy-matched posts
-     */
     List<Post> fuzzySearch(String query);
+    List<Post> searchPostsByCriteria(String title, String location, List<String> tags, Boolean isLost);
 }

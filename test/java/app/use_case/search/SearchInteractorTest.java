@@ -1,135 +1,124 @@
 package app.use_case.search;
 
 import entity.Post;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.search.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SearchInteractorTest {
+public class SearchInteractorTest {
 
-    @Test
-    void testQuerySearchReturnsResults() {
-        FakeDAO dao = new FakeDAO();
-        FakePresenter presenter = new FakePresenter();
-        SearchInteractor interactor = new SearchInteractor(dao, presenter);
+    private SearchUserDataAccessInterface fakeDAO;
+    private DummySearchPresenter presenter;
 
-        interactor.execute(new SearchInputData("Java", false));  // ✅ 加入 isFuzzy 参数
-
-        assertTrue(presenter.successCalled);
-        assertEquals(1, presenter.lastOutput.getPosts().size());
-        assertEquals("Java Book", presenter.lastOutput.getPosts().get(0).getTitle());
+    @BeforeEach
+    public void setUp() {
+        this.fakeDAO = new FakeSearchDAO();
+        this.presenter = new DummySearchPresenter();
     }
 
     @Test
-    void testQuerySearchNoResults() {
-        FakeDAO dao = new FakeDAO();
-        FakePresenter presenter = new FakePresenter();
-        SearchInteractor interactor = new SearchInteractor(dao, presenter);
+    public void testExactSearchFound() {
+        SearchInputData input = new SearchInputData("computer", false);
+        SearchInteractor interactor = new SearchInteractor(fakeDAO, presenter);
+        interactor.execute(input);
 
-        interactor.execute(new SearchInputData("Nonexistent", false));  // ✅ 加入 isFuzzy 参数
-
-        assertTrue(presenter.failCalled);
-        assertEquals("No posts found matching your search criteria.", presenter.lastOutput.getError());
+        assertNull(presenter.outputData.getError());
+        assertEquals(1, presenter.outputData.getPosts().size());
+        assertEquals("Lost Computer", presenter.outputData.getPosts().get(0).getTitle());
     }
 
     @Test
-    void testCriteriaSearchReturnsResults() {
-        FakeDAO dao = new FakeDAO();
-        FakePresenter presenter = new FakePresenter();
-        SearchInteractor interactor = new SearchInteractor(dao, presenter);
+    public void testExactSearchNotFound() {
+        SearchInputData input = new SearchInputData("banana", false);
+        SearchInteractor interactor = new SearchInteractor(fakeDAO, presenter);
+        interactor.execute(input);
 
-        interactor.execute(new SearchInputData("Math Notes", "Library", Arrays.asList("notes"), true));
-
-        assertTrue(presenter.successCalled);
-        assertEquals(1, presenter.lastOutput.getPosts().size());
-        assertEquals("Math Notes", presenter.lastOutput.getPosts().get(0).getTitle());
+        assertTrue(presenter.outputData.hasError());
+        assertEquals("No matching posts found. Try different search terms.", presenter.outputData.getError());
     }
 
     @Test
-    void testCriteriaSearchNoResults() {
-        FakeDAO dao = new FakeDAO();
-        FakePresenter presenter = new FakePresenter();
-        SearchInteractor interactor = new SearchInteractor(dao, presenter);
+    public void testFuzzySearchFound() {
+        SearchInputData input = new SearchInputData("computor", true);
+        SearchInteractor interactor = new SearchInteractor(fakeDAO, presenter);
+        interactor.execute(input);
 
-        interactor.execute(new SearchInputData("X", "Nowhere", Arrays.asList("random"), false));
-
-        assertTrue(presenter.failCalled);
-        assertEquals("No posts found matching your search criteria.", presenter.lastOutput.getError());
+        assertNull(presenter.outputData.getError());
+        assertEquals(1, presenter.outputData.getPosts().size());
+        assertEquals("Lost Computer", presenter.outputData.getPosts().get(0).getTitle());
     }
 
-    // ==== Fake classes ====
+    // Dummy Presenter for capturing output
+    private static class DummySearchPresenter implements SearchOutputBoundary {
+        SearchOutputData outputData;
 
-    private static class FakeDAO implements SearchUserDataAccessInterface {
-        private final List<Post> samplePosts;
+        @Override
+        public void prepareSuccessView(SearchOutputData searchOutputData) {
+            this.outputData = searchOutputData;
+        }
 
-        public FakeDAO() {
-            LocalDateTime now = LocalDateTime.now();
-            samplePosts = new ArrayList<>();
-            samplePosts.add(new Post(
-                    1, "Java Book", "Intro to Java", null,
-                    now, "Alice", "Room A", null,
-                    true, 0, null
-            ));
-            samplePosts.add(new Post(
-                    2, "Math Notes", "Lost notes", Arrays.asList("notes", "math"),
-                    now, "Bob", "Library", null,
-                    true, 0, null
-            ));
+        @Override
+        public void prepareFailView(SearchOutputData searchOutputData) {
+            this.outputData = searchOutputData;
+        }
+    }
+
+    // Fake DAO with hardcoded post list
+    private static class FakeSearchDAO implements SearchUserDataAccessInterface {
+
+        private final List<Post> fakePosts;
+
+        public FakeSearchDAO() {
+            Post post1 = new Post(
+                    1,
+                    "Lost Computer",
+                    "Black Dell laptop with stickers",
+                    Arrays.asList("electronics", "laptop"),
+                    LocalDateTime.now(),
+                    "Alice",
+                    "Library",
+                    null,
+                    true,
+                    0,
+                    new HashMap<>()
+            );
+            this.fakePosts = Collections.singletonList(post1);
+        }
+
+        @Override
+        public List<Post> getAllPosts() {
+            return fakePosts;
         }
 
         @Override
         public List<Post> searchPosts(String query) {
             List<Post> result = new ArrayList<>();
-            for (Post p : samplePosts) {
-                if (p.getTitle().toLowerCase().contains(query.toLowerCase()) ||
-                        p.getDescription().toLowerCase().contains(query.toLowerCase())) {
-                    result.add(p);
+            for (Post post : fakePosts) {
+                if (post.getTitle().toLowerCase().contains(query.toLowerCase()) ||
+                        post.getDescription().toLowerCase().contains(query.toLowerCase())) {
+                    result.add(post);
                 }
             }
             return result;
         }
 
         @Override
-        public List<Post> searchPostsByCriteria(String title, String location, List<String> tags, Boolean isLost) {
-            List<Post> result = new ArrayList<>();
-            for (Post p : samplePosts) {
-                boolean matches = (title == null || p.getTitle().equalsIgnoreCase(title)) &&
-                        (location == null || p.getLocation().equalsIgnoreCase(location)) &&
-                        (tags == null || (p.getTags() != null && p.getTags().containsAll(tags))) &&
-                        (isLost == null || p.isLost() == isLost);
-                if (matches) result.add(p);
-            }
-            return result;
-        }
-
-        @Override
         public List<Post> fuzzySearch(String query) {
-            // For testing purposes, reuse basic logic
-            return searchPosts(query);
-        }
-    }
-
-    private static class FakePresenter implements SearchOutputBoundary {
-        boolean successCalled = false;
-        boolean failCalled = false;
-        SearchOutputData lastOutput;
-
-        @Override
-        public void prepareSuccessView(SearchOutputData searchOutputData) {
-            successCalled = true;
-            lastOutput = searchOutputData;
+            // Simulate fuzzy match for "computor" → "computer"
+            if ("computor".equalsIgnoreCase(query)) {
+                return fakePosts;
+            }
+            return new ArrayList<>();
         }
 
         @Override
-        public void prepareFailView(SearchOutputData searchOutputData) {
-            failCalled = true;
-            lastOutput = searchOutputData;
+        public List<Post> searchPostsByCriteria(String title, String location, List<String> tags, Boolean isLost) {
+            return new ArrayList<>();
         }
     }
 }

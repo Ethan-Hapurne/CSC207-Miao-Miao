@@ -20,6 +20,11 @@ public class SearchDataAccessMemory implements SearchUserDataAccessInterface {
     }
 
     @Override
+    public List<Post> getAllPosts() {
+        return new ArrayList<>(posts);
+    }
+
+    @Override
     public List<Post> searchPosts(String query) {
         return posts.stream()
                 .filter(p -> p.getTitle().toLowerCase().contains(query.toLowerCase()) ||

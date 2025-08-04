@@ -1,35 +1,30 @@
 package app;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
-/**
- * The Main class of our application.
- */
 public class Main {
-    /**
-     * Builds and runs the CA architecture of the application.
-     * @param args unused arguments
-     */
     public static void main(String[] args) {
-        final AppBuilder appBuilder = new AppBuilder();
-        final JFrame application = appBuilder
-                                            .addLoginView()
-                                            .addSignupView()
-                                            .addLoggedInView()
-                                            .addAccountView()
-                                            .addChangeUsernameUseCase()
-                                            .addSearchView()
-                                            .addDashboardView()
-                                            .addDMsView()
-                                            .addSignupUseCase()
-                                            .addLoginUseCase()
-                                            .addLogoutUseCase()
-                                            .addChangePasswordUseCase()
-                                            .addSearchUseCase()
-                                            .addDashboardUseCase()
-                                            .build();
+        SwingUtilities.invokeLater(() -> {
+            AppBuilder builder = new AppBuilder();
+            builder
+                    .addSignupView()
+                    .addLoginView()
+                    .addLoggedInView()
+                    .addSearchView()
+                    .addDashboardView()
+                    .addAccountView()
+                    .addDMsView()
+                    .addSignupUseCase()
+                    .addLoginUseCase()
+                    .addChangePasswordUseCase()
+                    .addLogoutUseCase()
+                    .addSearchUseCase()
+                    .addDashboardUseCase()
+                    .addChangeUsernameUseCase();
 
-        application.pack();
-        application.setVisible(true);
+            JFrame app = builder.build();
+            app.setSize(1000, 700); // 可选：设定窗口大小
+            app.setVisible(true);
+        });
     }
 }

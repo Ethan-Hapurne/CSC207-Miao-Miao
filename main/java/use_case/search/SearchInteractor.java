@@ -1,53 +1,83 @@
 package use_case.search;
 
 import entity.Post;
+import use_case.search.util.FuzzyMatchHelper;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
-/**
- * Interactor for the search use case.
- * Implements the business logic for searching posts.
- */
 public class SearchInteractor implements SearchInputBoundary {
     private final SearchUserDataAccessInterface searchDataAccessObject;
     private final SearchOutputBoundary searchOutputBoundary;
 
     public SearchInteractor(SearchUserDataAccessInterface searchDataAccessObject,
-                           SearchOutputBoundary searchOutputBoundary) {
-        this.searchDataAccessObject = searchDataAccessObject;
-        this.searchOutputBoundary = searchOutputBoundary;
+                            SearchOutputBoundary searchOutputBoundary) {
+        this.searchDataAccessObject = Objects.requireNonNull(
+                searchDataAccessObject, "SearchDataAccessObject must not be null"
+        );
+        this.searchOutputBoundary = Objects.requireNonNull(
+                searchOutputBoundary, "SearchOutputBoundary must not be null"
+        );
     }
 
     @Override
     public void execute(SearchInputData searchInputData) {
         try {
-            List<Post> posts;
-            
-            // Check if we're doing a simple query search or criteria search
-            if (searchInputData.getQuery() != null && !searchInputData.getQuery().trim().isEmpty()) {
-                // Simple query search
-                posts = searchDataAccessObject.searchPosts(searchInputData.getQuery().trim());
-            } else {
-                // Criteria-based search
-                posts = searchDataAccessObject.searchPostsByCriteria(
-                    searchInputData.getTitle(),
-                    searchInputData.getLocation(),
-                    searchInputData.getTags(),
-                    searchInputData.getIsLost()
-                );
+            if (searchInputData == null) {
+                throw new IllegalArgumentException("SearchInputData cannot be null");
             }
 
-            // Create output data
-            SearchOutputData searchOutputData = new SearchOutputData(posts);
-            
-            // Present results
-            if (posts.isEmpty()) {
-                searchOutputBoundary.prepareFailView(new SearchOutputData("No posts found matching your search criteria."));
+            List<Post> posts;
+            String rawQuery = searchInputData.getQuery();
+            boolean hasQuery = rawQuery != null && !rawQuery.trim().isEmpty();
+
+            if (hasQuery) {
+                String query = rawQuery.trim();
+                posts = performQuerySearch(searchInputData, query);
             } else {
-                searchOutputBoundary.prepareSuccessView(searchOutputData);
+                posts = performCriteriaSearch(searchInputData);
             }
-            
+
+            handleSearchResults(posts);
         } catch (Exception e) {
-            searchOutputBoundary.prepareFailView(new SearchOutputData("An error occurred while searching: " + e.getMessage()));
+            handleSearchError(e);
         }
     }
-} 
+
+    private List<Post> performQuerySearch(SearchInputData searchInputData, String query) {
+        if (searchInputData.isFuzzy()) {
+            List<Post> allPosts = searchDataAccessObject.getAllPosts();
+            return FuzzyMatchHelper.fuzzyMatchPosts(
+                    allPosts != null ? allPosts : Collections.emptyList(),
+                    query
+            );
+        } else {
+            return searchDataAccessObject.searchPosts(query);
+        }
+    }
+
+    private List<Post> performCriteriaSearch(SearchInputData searchInputData) {
+        return searchDataAccessObject.searchPostsByCriteria(
+                searchInputData.getTitle(),
+                searchInputData.getLocation(),
+                searchInputData.getTags(),
+                searchInputData.getIsLost()
+        );
+    }
+
+    private void handleSearchResults(List<Post> posts) {
+        if (posts == null || posts.isEmpty()) {
+            searchOutputBoundary.prepareFailView(
+                    new SearchOutputData("No matching posts found. Try different search terms.")
+            );
+        } else {
+            searchOutputBoundary.prepareSuccessView(new SearchOutputData(posts));
+        }
+    }
+
+    private void handleSearchError(Exception e) {
+        String errorMessage = "Search failed: " + e.getMessage();
+        System.err.println(errorMessage);
+        searchOutputBoundary.prepareFailView(new SearchOutputData(errorMessage));
+    }
+}
