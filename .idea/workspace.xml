@@ -5,56 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cee90c25-e7e9-472e-92f4-eb352449f6c4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/main/java/data_access/SearchDataAccessMemory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/java/use_case/search/util/FuzzyMatchHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/java/use_case/search/util/FuzzyMatcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/java/use_case/search/util/SynonymExpander.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/change_password/ChangePasswordInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/change_username/ChangeUsernameInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/dashboard/DashboardInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/login/LoginInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/logout/LogoutInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/search/SearchInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/signup/SignupInteractorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CSC207-Miao-Miao.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/use_case/change_username/ChangeUsernameInteractorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/use_case/resolve_post/ResolvePostInteractorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/use_case/search/FuzzyMatchHelperTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/use_case/search/SearchInteractorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/view/AccountViewActionsTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/view/AdminViewListRenderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/view/DeleteUserViewUpdateTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/view/LabelTextPanelTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/view/LoggedInViewNavTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/view/LoginViewTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/view/SearchViewTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/view/SignupViewTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/view/ViewManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/homework-5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/homework-5.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/data_access/APIPostDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/data_access/APIPostDataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/data_access/FirebasePostDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/data_access/FirebasePostDataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/interface_adapter/search/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/interface_adapter/search/SearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/use_case/search/SearchInputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/use_case/search/SearchInputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/use_case/search/SearchUserDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/use_case/search/SearchUserDataAccessInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/view/SearchView.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/view/SearchView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/entity/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/entity/Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/entity/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/entity/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/entity/Post.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/APIPostDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/APIPostDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/InMemoryUserDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/InMemoryUserDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapter/search/SearchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapter/search/SearchController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/search/SearchInputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/use_case/search/SearchInputData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/search/SearchUserDataAccessInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/use_case/search/SearchUserDataAccessInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/LoggedInView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/LoggedInView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/LoginView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/SearchView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/SearchView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/SearchView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/SearchView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/java/app/use_case/change_password/ChangePasswordInteractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/java/use_case/change_password/ChangePasswordInteractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/java/app/use_case/dashboard/DashboardInteractorTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/java/app/use_case/login/LoginInteractorTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/java/app/use_case/signup/SignupInteractorTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -66,22 +48,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Scarlett-Z-Best"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Scarlett-Z-Best&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Ethan-Hapurne/CSC207-Miao-Miao",
-    "accountId": "00777ed4-e665-42cd-b94d-7ef97d764813"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Ethan-Hapurne/CSC207-Miao-Miao&quot;,
+    &quot;accountId&quot;: &quot;00777ed4-e665-42cd-b94d-7ef97d764813&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="30QzN4olb8YPK9MwOpebEKQ2t67" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -92,25 +74,145 @@
     "JUnit.ChangePasswordInteractorTest.executor": "Run",
     "JUnit.ChangeUsernameInteractorTest.executor": "Run",
     "JUnit.DashboardInteractorTest.executor": "Run",
+    "JUnit.FuzzyMatchHelperTest.executor": "Run",
+    "JUnit.LabelTextPanelTest.executor": "Coverage",
     "JUnit.LoginInteractorTest.executor": "Run",
     "JUnit.LogoutInteractorTest.executor": "Run",
+    "JUnit.ResolvePostInteractorTest.executor": "Run",
     "JUnit.SearchInteractorTest.executor": "Run",
     "JUnit.SignupInteractorTest.executor": "Run",
+    "JUnit.ViewManagerTest.executor": "Coverage",
+    "JUnit.change_password in homework-5.executor": "Coverage",
+    "JUnit.view in homework-5 (1).executor": "Coverage",
+    "JUnit.view in homework-5.executor": "Run",
+    "Maven.homework-5 [clean,test].executor": "Run",
     "Maven.homework-5 [clean].executor": "Run",
     "Maven.homework-5 [compile].executor": "Run",
+    "Maven.homework-5 [test].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "add-fuzzy-search"
+    "git-widget-placeholder": "tests/yipeng",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="use_case.search" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.change_password in homework-5">
+    <configuration name="ChangePasswordInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="homework-5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="use_case.change_password.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="use_case.change_password" />
+      <option name="MAIN_CLASS_NAME" value="use_case.change_password.ChangePasswordInteractorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LabelTextPanelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="homework-5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="view" />
+      <option name="MAIN_CLASS_NAME" value="view.LabelTextPanelTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ViewManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="homework-5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="view" />
+      <option name="MAIN_CLASS_NAME" value="view.ViewManagerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="change_password in homework-5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="homework-5" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/test/java/use_case/change_password" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="view in homework-5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="homework-5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="false" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="view" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="-ea-Dnet.bytebuddy.experimental=true " />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="view in homework-5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="homework-5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.DMsView" />
+          <option name="ENABLED" value="true" />
+          <option name="INCLUDE" value="false" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="view.DMsView" />
+          <option name="ENABLED" value="false" />
+          <option name="INCLUDE" value="false" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/test/java/view" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="CSC207-Miao-Miao" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.change_password in homework-5" />
+        <item itemvalue="JUnit.view in homework-5" />
+        <item itemvalue="JUnit.view in homework-5" />
+        <item itemvalue="JUnit.LabelTextPanelTest" />
+        <item itemvalue="JUnit.ChangePasswordInteractorTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -121,5 +223,32 @@
       <updated>1753574543181</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/main/java/view/DMsView.java</url>
+          <line>359</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$ViewManagerTest.ic" NAME="ViewManagerTest Coverage Results" MODIFIED="1754710527541" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$LabelTextPanelTest.ic" NAME="LabelTextPanelTest Coverage Results" MODIFIED="1754711210932" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$view_in_homework_5__1_.ic" NAME="view in homework-5 (1) Coverage Results" MODIFIED="1754711278628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$ChangePasswordInteractorTest.ic" NAME="ChangePasswordInteractorTest Coverage Results" MODIFIED="1754710704061" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.change_password.*</FILTER>
+    </SUITE>
   </component>
 </project>
