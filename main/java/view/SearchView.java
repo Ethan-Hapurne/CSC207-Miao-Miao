@@ -19,7 +19,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
     private final String viewName = "search";
     private final SearchViewModel searchViewModel;
     private final JTextField searchInputField = new JTextField(15);
-    private final JCheckBox fuzzyCheckbox = new JCheckBox("Fuzzy Search");
+
     private final JLabel searchErrorField = new JLabel();
     private final JButton searchButton = new JButton("Search");
     private final JButton backButton = new JButton("Back");
@@ -42,7 +42,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
         title.setFont(new Font("Arial", Font.BOLD, 18));
 
         LabelTextPanel searchInfo = new LabelTextPanel(new JLabel("Search Query"), searchInputField);
-        fuzzyCheckbox.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(searchButton);
@@ -52,7 +52,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
         topPanel.add(Box.createVerticalStrut(10));
         topPanel.add(searchInfo);
         topPanel.add(Box.createVerticalStrut(5));
-        topPanel.add(fuzzyCheckbox);
+
         topPanel.add(Box.createVerticalStrut(5));
         topPanel.add(searchErrorField);
         topPanel.add(Box.createVerticalStrut(5));
@@ -82,9 +82,8 @@ public class SearchView extends JPanel implements PropertyChangeListener {
         // Hook up search button
         searchButton.addActionListener(evt -> {
             SearchState state = searchViewModel.getState();
-            boolean isFuzzy = fuzzyCheckbox.isSelected();
-            System.out.println("[UI] User clicked search. Query: " + state.getSearchQuery() + " | Fuzzy: " + isFuzzy);
-            searchController.execute(state.getSearchQuery(), isFuzzy);
+                    System.out.println("[UI] User clicked search. Query: " + state.getSearchQuery());
+        searchController.execute(state.getSearchQuery());
         });
 
         backButton.addActionListener(evt -> searchController.navigateBack());

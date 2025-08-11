@@ -31,6 +31,7 @@ public class Main {
                     .addChangeUsernameUseCase()
                     .addDeletePostUseCase()
                     .addDeleteUserUseCase()
+                    .addFuzzySearchView()
                     .addDMsUseCase();
 
             JFrame application = builder.build();

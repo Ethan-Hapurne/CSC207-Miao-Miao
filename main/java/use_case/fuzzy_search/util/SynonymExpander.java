@@ -1,4 +1,4 @@
-package use_case.search.util;
+package use_case.fuzzy_search.util;
 
 import java.util.*;
 

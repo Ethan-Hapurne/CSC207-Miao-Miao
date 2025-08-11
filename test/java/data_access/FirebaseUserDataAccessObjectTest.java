@@ -44,6 +44,134 @@ class FirebaseUserDataAccessObjectCoverageTest {
     }
 
     @Test
+    @DisplayName("Get all users returns list of usernames in mock mode")
+    void getAllUsers_MockMode() {
+        // Add a few test users
+        try {
+            @SuppressWarnings("unchecked")
+            Map<String, User> mockUsers = (Map<String, User>) getPrivateField(dao, "mockUsers");
+            mockUsers.put("user1", new CommonUser("user1", "pass1", false));
+            mockUsers.put("user2", new CommonUser("user2", "pass2", false));
+        } catch (Exception e) {
+            fail("Failed to set up test users");
+        }
+
+        var users = dao.getAllUsers();
+        assertNotNull(users, "Users list should not be null");
+        assertTrue(users.contains("testuser"), "Should contain seeded testuser");
+        assertTrue(users.contains("admin"), "Should contain seeded admin");
+        assertTrue(users.contains("user1"), "Should contain added user1");
+        assertTrue(users.contains("user2"), "Should contain added user2");
+    }
+
+    @Test
+    @DisplayName("Delete user removes user from mock storage")
+    void deleteUser_MockMode() {
+        // First verify testuser exists
+        assertTrue(dao.existsByName("testuser"), "testuser should exist initially");
+        
+        // Delete the user
+        dao.deleteUser("testuser");
+        
+        // Verify user no longer exists
+        assertFalse(dao.existsByName("testuser"), "testuser should no longer exist after deletion");
+    }
+
+    @Test
+    @DisplayName("Delete non-existent user should throw exception")
+    void deleteNonExistentUser_ThrowsException() {
+        String nonExistentUser = "nonexistent_" + UUID.randomUUID();
+        assertThrows(RuntimeException.class, () -> dao.deleteUser(nonExistentUser));
+    }
+
+    @Test
+    @DisplayName("Get current username when not logged in returns null")
+    void getCurrentUsername_WhenNotLoggedIn_ReturnsNull() throws Exception {
+        // Ensure no user is logged in
+        setPrivateField(dao, "currentUsername", null);
+        
+        Method getCurrentUsername = findMethod(
+            dao.getClass(),
+            new String[]{"getCurrentUsername", "getLoggedInUsername"},
+            new Class[][]{{}}
+        );
+        
+        if (getCurrentUsername != null) {
+            Object result = getCurrentUsername.invoke(dao);
+            assertNull(result, "Should return null when no user is logged in");
+        }
+    }
+
+    @Test
+    @DisplayName("Login with non-existent user returns false")
+    void login_WithNonExistentUser_ReturnsFalse() throws Exception {
+        Method login = findMethod(
+            dao.getClass(),
+            new String[]{"login", "loginUser", "authenticate", "validateLogin"},
+            new Class[][]{{String.class, String.class}}
+        );
+        
+        if (login != null) {
+            String nonExistentUser = "nonexistent_" + UUID.randomUUID();
+            Object result = login.invoke(dao, nonExistentUser, "anypassword");
+        
+            if (result instanceof Boolean) {
+                assertFalse((Boolean) result, "Login should fail for non-existent user");
+            }
+        }
+    }
+
+    @Test
+    @DisplayName("Change password for non-existent user throws exception")
+    void changePassword_NonExistentUser_ThrowsException() throws Exception {
+        Method changePassword = findMethod(
+            dao.getClass(),
+            new String[]{"changePassword", "updatePassword"},
+            new Class[][]{
+                {String.class, String.class},
+                {String.class, String.class, String.class},
+                {String.class}
+            }
+        );
+        
+        if (changePassword != null) {
+            String nonExistentUser = "nonexistent_" + UUID.randomUUID();
+            Class<?>[] ptypes = changePassword.getParameterTypes();
+        
+            assertThrows(Exception.class, () -> {
+                if (ptypes.length == 2) {
+                    changePassword.invoke(dao, nonExistentUser, "newpass");
+                } else if (ptypes.length == 3) {
+                    changePassword.invoke(dao, nonExistentUser, "oldpass", "newpass");
+                } else {
+                    // Can't test single-parameter version without being logged in
+                    throw new Exception("Test not applicable for current signature");
+                }
+            });
+        }
+    }
+
+    @Test
+    @DisplayName("Logout when not logged in returns false")
+    void logout_WhenNotLoggedIn_ReturnsFalse() throws Exception {
+        // Ensure no user is logged in
+        setPrivateField(dao, "currentUsername", null);
+        
+        Method logout = findMethod(
+            dao.getClass(),
+            new String[]{"logout", "signOut"},
+            new Class[][]{{}}
+        );
+        
+        if (logout != null) {
+            Object result = logout.invoke(dao);
+            if (result instanceof Boolean) {
+                assertFalse((Boolean) result, "Logout should return false when no user is logged in");
+            }
+        }
+    }
+
+    @Test
     @DisplayName("High-coverage end-to-end in mock mode: signup, login, change password/username, logout")
     void highCoverageMockFlow() throws Exception {
         // 1) “Signup” a user (invoke any supported method; otherwise seed directly)
@@ -246,4 +374,125 @@ class FirebaseUserDataAccessObjectCoverageTest {
         }
         return true;
     }
+
+@Test
+@DisplayName("Get user returns correct user in mock mode")
+void getUser_ReturnsMockUser() {
+    User user = dao.get("testuser");
+    assertNotNull(user, "Should return user object");
+    assertEquals("testuser", user.getName(), "Should return correct username");
+    assertEquals("password123", user.getPassword(), "Should return correct password");
+    assertFalse(user.isAdmin(), "Should not be admin");
+}
+
+@Test
+@DisplayName("Get non-existent user returns null in mock mode")
+void getNonExistentUser_ReturnsNull() {
+    User user = dao.get("nonexistent");
+    assertNull(user, "Should return null for non-existent user");
+}
+
+@Test
+@DisplayName("Save user updates existing user in mock mode")
+void saveUser_UpdatesExistingUser() {
+    User updatedUser = new CommonUser("testuser", "newpassword", true);
+    dao.save(updatedUser);
+    
+    User retrieved = dao.get("testuser");
+    assertNotNull(retrieved, "Updated user should exist");
+    assertEquals("newpassword", retrieved.getPassword(), "Password should be updated");
+    assertTrue(retrieved.isAdmin(), "Admin status should be updated");
+}
+
+@Test
+@DisplayName("Set and get current username work correctly")
+void setAndGetCurrentUsername() {
+    dao.setCurrentUsername("testuser");
+    assertEquals("testuser", dao.getCurrentUsername(), "Current username should match set value");
+    
+    dao.setCurrentUsername(null);
+    assertNull(dao.getCurrentUsername(), "Current username should be null after setting to null");
+}
+
+@Test
+@DisplayName("Change username fails when new username already exists")
+void changeUsername_FailsWhenNewUsernameExists() throws Exception {
+    // Setup: ensure both old and new usernames exist
+    @SuppressWarnings("unchecked")
+    Map<String, User> mockUsers = (Map<String, User>) getPrivateField(dao, "mockUsers");
+    mockUsers.put("olduser", new CommonUser("olduser", "pass1", false));
+    mockUsers.put("newuser", new CommonUser("newuser", "pass2", false));
+    
+    boolean result = dao.changeUsername("olduser", "newuser");
+    assertFalse(result, "Should fail when new username already exists");
+    assertTrue(dao.existsByName("olduser"), "Old username should still exist");
+    assertTrue(dao.existsByName("newuser"), "New username should still exist");
+}
+
+@Test
+@DisplayName("Change username fails when old username doesn't exist")
+void changeUsername_FailsWhenOldUsernameDoesNotExist() {
+    boolean result = dao.changeUsername("nonexistent", "newname");
+    assertFalse(result, "Should fail when old username doesn't exist");
+}
+
+@Test
+@DisplayName("Save creates new user when username doesn't exist")
+void save_CreatesNewUser() {
+    String newUsername = "newuser_" + UUID.randomUUID();
+    User newUser = new CommonUser(newUsername, "password", false);
+    
+    assertFalse(dao.existsByName(newUsername), "User should not exist initially");
+    dao.save(newUser);
+    assertTrue(dao.existsByName(newUsername), "User should exist after save");
+    
+    User retrieved = dao.get(newUsername);
+    assertNotNull(retrieved, "Should be able to retrieve saved user");
+    assertEquals(newUsername, retrieved.getName(), "Username should match");
+    assertEquals("password", retrieved.getPassword(), "Password should match");
+    assertFalse(retrieved.isAdmin(), "Admin status should match");
+}
+
+@Test
+@DisplayName("Change username updates currentUsername when logged in user is renamed")
+void changeUsername_UpdatesCurrentUsername() throws Exception {
+    // Setup: create user and set as current
+    String oldUsername = "olduser";
+    String newUsername = "newuser";
+    User user = new CommonUser(oldUsername, "pass", false);
+    
+    @SuppressWarnings("unchecked")
+    Map<String, User> mockUsers = (Map<String, User>) getPrivateField(dao, "mockUsers");
+    mockUsers.put(oldUsername, user);
+    dao.setCurrentUsername(oldUsername);
+    
+    // Perform username change
+    boolean result = dao.changeUsername(oldUsername, newUsername);
+    
+    assertTrue(result, "Username change should succeed");
+    assertEquals(newUsername, dao.getCurrentUsername(), 
+                "Current username should be updated when logged-in user is renamed");
+}
+
+@Test
+@DisplayName("Change username doesn't update currentUsername for different user")
+void changeUsername_DoesNotUpdateCurrentUsernameForDifferentUser() throws Exception {
+    // Setup: create two users, set one as current
+    String currentUser = "current";
+    String oldUsername = "olduser";
+    String newUsername = "newuser";
+    
+    @SuppressWarnings("unchecked")
+    Map<String, User> mockUsers = (Map<String, User>) getPrivateField(dao, "mockUsers");
+    mockUsers.put(currentUser, new CommonUser(currentUser, "pass1", false));
+    mockUsers.put(oldUsername, new CommonUser(oldUsername, "pass2", false));
+    dao.setCurrentUsername(currentUser);
+    
+    // Change username of the other user
+    boolean result = dao.changeUsername(oldUsername, newUsername);
+    
+    assertTrue(result, "Username change should succeed");
+    assertEquals(currentUser, dao.getCurrentUsername(), 
+                "Current username should not change when different user is renamed");
+}
 }

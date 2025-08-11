@@ -174,6 +174,7 @@ public class AdminView extends JPanel implements ActionListener, PropertyChangeL
         postDetailPanel.setLayout(new BorderLayout());
         postDetailPanel.setBorder(BorderFactory.createTitledBorder("Post Details"));
         postDetailPanel.setPreferredSize(new Dimension(500, 600));
+        postDetailPanel.setName("postDetailPanel");
 
         // Add a placeholder for post details
         JLabel placeholderLabel = new JLabel("Select a post to view details", SwingConstants.CENTER);
@@ -299,10 +300,14 @@ public class AdminView extends JPanel implements ActionListener, PropertyChangeL
             String location = locationField.getText().trim();
             boolean isLost = lostButton.isSelected();
 
-            if (title.isEmpty() || content.isEmpty()) {
-                JOptionPane.showMessageDialog(dialog, "Title and content are required!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+            if (titleField.getText().trim().isEmpty() || descriptionArea.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(dialog,
+                        "Title and description are required.",
+                        "Validation Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return; // Don't proceed with the submission
             }
+
 
             List<String> tags = new ArrayList<>();
             if (!tagsText.isEmpty()) {
@@ -509,6 +514,10 @@ public class AdminView extends JPanel implements ActionListener, PropertyChangeL
 
     public String getViewName() {
         return viewName;
+    }
+
+    public JTextField getSearchField() {
+        return searchField;
     }
 
     public void setAdminController(AdminController adminController) {

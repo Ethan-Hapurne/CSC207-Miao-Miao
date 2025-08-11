@@ -19,12 +19,6 @@ public class AdminOutputData {
         this.successMessage = null;
     }
 
-    public AdminOutputData(Post selectedPost) {
-        this.posts = null;
-        this.selectedPost = selectedPost;
-        this.error = null;
-        this.successMessage = null;
-    }
 
     public AdminOutputData(String error) {
         this.posts = null;

@@ -266,9 +266,18 @@ public class FirebaseUserDataAccessObject implements
     }
     
     public List<String> getAllUsers() {
-        CompletableFuture<List<String>> future = new CompletableFuture<>();
+        System.out.println("DEBUG: Starting to fetch users");
+        
+        if (useMockData) {
+            List<String> users = mockUsers.values().stream()
+                .map(User::getName)
+                .collect(java.util.stream.Collectors.toList());
+            System.out.println("DEBUG: Retrieved users from mock storage: " + users);
+            return users;
+        }
 
-        System.out.println("DEBUG: Starting to fetch users from Firebase");
+        // Original Firebase implementation
+        CompletableFuture<List<String>> future = new CompletableFuture<>();
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -306,13 +315,21 @@ public class FirebaseUserDataAccessObject implements
 
 
     public void deleteUser(String username) {
-        CompletableFuture<Void> future = new CompletableFuture<>();
-
         System.out.println("DEBUG: Attempting to delete user: " + username);
 
-        // Direct reference to the user node using the username as the key
-        DatabaseReference userRef = usersRef.child(username);
+        if (useMockData) {
+            if (!mockUsers.containsKey(username)) {
+                System.out.println("DEBUG: User not found in mock storage: " + username);
+                throw new RuntimeException("User not found");
+            }
+            mockUsers.remove(username);
+            System.out.println("DEBUG: User deleted from mock storage: " + username);
+            return;
+        }
 
+        // Original Firebase implementation
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        DatabaseReference userRef = usersRef.child(username);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

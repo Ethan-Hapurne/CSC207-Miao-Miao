@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class FirebasePostDataAccessObject implements
         DashboardUserDataAccessInterface,
         SearchUserDataAccessInterface,
+        use_case.fuzzy_search.FuzzySearchUserDataAccessInterface,
         use_case.admin.AdminUserDataAccessInterface{
 
     private final DatabaseReference postsRef;
@@ -311,14 +312,7 @@ public class FirebasePostDataAccessObject implements
         return matchingPosts;
     }
 
-    @Override
-    public List<Post> fuzzySearch(String query) {
-        // Get all posts from Firebase first
-        List<Post> allPosts = getAllPosts();
-        
-        // Use fuzzy matching to filter posts
-        return use_case.search.util.FuzzyMatchHelper.fuzzyMatchPosts(allPosts, query);
-    }
+
 
 
 

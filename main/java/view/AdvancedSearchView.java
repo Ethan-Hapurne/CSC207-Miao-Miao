@@ -26,7 +26,7 @@ public class AdvancedSearchView extends JPanel implements PropertyChangeListener
     private final JTextField locationField = new JTextField(20);
     private final JTextField tagsField = new JTextField(20);
     private final JComboBox<String> typeComboBox = new JComboBox<>(new String[]{"Any", "Lost", "Found"});
-    private final JCheckBox fuzzyCheckbox = new JCheckBox("Fuzzy Search");
+
     
     // UI components
     private final JLabel searchErrorField = new JLabel();
@@ -113,11 +113,7 @@ public class AdvancedSearchView extends JPanel implements PropertyChangeListener
         gbc.gridx = 1;
         formPanel.add(typeComboBox, gbc);
 
-        // Fuzzy search checkbox
-        gbc.gridx = 0; gbc.gridy = 4;
-        gbc.gridwidth = 2;
-        fuzzyCheckbox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        formPanel.add(fuzzyCheckbox, gbc);
+
 
         return formPanel;
     }
@@ -127,7 +123,7 @@ public class AdvancedSearchView extends JPanel implements PropertyChangeListener
         String location = locationField.getText().trim();
         String tagsText = tagsField.getText().trim();
         String typeSelection = (String) typeComboBox.getSelectedItem();
-        boolean isFuzzy = fuzzyCheckbox.isSelected();
+
 
         // Parse tags
         List<String> tags = new ArrayList<>();
@@ -151,8 +147,7 @@ public class AdvancedSearchView extends JPanel implements PropertyChangeListener
         System.out.println("[UI] Advanced search - Title: '" + title + 
                          "', Location: '" + location + 
                          "', Tags: " + tags + 
-                         ", Type: " + typeSelection + 
-                         ", Fuzzy: " + isFuzzy);
+                         ", Type: " + typeSelection + "'");
 
         searchController.executeAdvancedSearch(title, location, tags, isLost);
     }

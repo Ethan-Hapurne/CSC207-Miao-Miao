@@ -42,6 +42,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private JButton dashboardButton;
     private JButton accountButton;
     private JButton dmsButton;
+    private JButton fuzzySearchButton;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel) {
         this.loggedInViewModel = loggedInViewModel;
@@ -121,15 +122,16 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         panel.setOpaque(false);
         panel.setMaximumSize(new Dimension(400, 200));
 
-        // Create a grid of buttons (1x3)
-        JPanel buttonGrid = new JPanel(new GridLayout(1, 3, 15, 15));
+        // Create a grid of buttons (2x2)
+        JPanel buttonGrid = new JPanel(new GridLayout(2, 2, 15, 15));
         buttonGrid.setOpaque(false);
-        buttonGrid.setMaximumSize(new Dimension(600, 75));
+        buttonGrid.setMaximumSize(new Dimension(600, 150));
 
         // Style the buttons
         dashboardButton = createStyledButton("Dashboard", new Color(0, 123, 255));
         accountButton = createStyledButton("Account", new Color(255, 193, 7));
         dmsButton = createStyledButton("DMs", new Color(220, 53, 69));
+        fuzzySearchButton = createStyledButton("Fuzzy Search", new Color(40, 167, 69));
 
         // Set button sizes
         Dimension buttonSize = new Dimension(180, 50);
@@ -140,6 +142,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         buttonGrid.add(dashboardButton);
         buttonGrid.add(accountButton);
         buttonGrid.add(dmsButton);
+        buttonGrid.add(fuzzySearchButton);
 
         panel.add(buttonGrid);
 
@@ -203,6 +206,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     dmsView.setCurrentUsername(username.getText());
                 }
                 viewManagerModel.pushView("dms");
+            }
+        });
+
+        fuzzySearchButton.addActionListener(evt -> {
+            if (evt.getSource().equals(fuzzySearchButton)) {
+                viewManagerModel.pushView("fuzzy search");
             }
         });
     }

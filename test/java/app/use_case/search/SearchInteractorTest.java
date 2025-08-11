@@ -19,7 +19,7 @@ class SearchInteractorTest {
         FakePresenter presenter = new FakePresenter();
         SearchInteractor interactor = new SearchInteractor(dao, presenter);
 
-        interactor.execute(new SearchInputData("Java", false));  // ✅ 加入 isFuzzy 参数
+        interactor.execute(new SearchInputData("Java"));
 
         assertTrue(presenter.successCalled);
         assertEquals(1, presenter.lastOutput.getPosts().size());
@@ -32,7 +32,7 @@ class SearchInteractorTest {
         FakePresenter presenter = new FakePresenter();
         SearchInteractor interactor = new SearchInteractor(dao, presenter);
 
-        interactor.execute(new SearchInputData("Nonexistent", false));  // ✅ 加入 isFuzzy 参数
+        interactor.execute(new SearchInputData("Nonexistent"));
 
         assertTrue(presenter.failCalled);
         assertEquals("No posts found matching your search criteria.", presenter.lastOutput.getError());
@@ -108,11 +108,7 @@ class SearchInteractorTest {
             return result;
         }
 
-        @Override
-        public List<Post> fuzzySearch(String query) {
-            // For testing purposes, reuse basic logic
-            return searchPosts(query);
-        }
+
     }
 
     private static class FakePresenter implements SearchOutputBoundary {

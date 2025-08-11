@@ -26,14 +26,8 @@ public class SearchInteractor implements SearchInputBoundary {
             if (searchInputData.getQuery() != null && !searchInputData.getQuery().trim().isEmpty()) {
                 String query = searchInputData.getQuery().trim();
                 
-                // Determine whether to use fuzzy search based on the input flag
-                if (searchInputData.isFuzzy()) {
-                    System.out.println("DEBUG: Executing fuzzy search for query: " + query);
-                    posts = searchDataAccessObject.fuzzySearch(query);
-                } else {
-                    System.out.println("DEBUG: Executing regular search for query: " + query);
-                    posts = searchDataAccessObject.searchPosts(query);
-                }
+                System.out.println("DEBUG: Executing regular search for query: " + query);
+                posts = searchDataAccessObject.searchPosts(query);
             } else {
                 // Criteria-based search
                 System.out.println("DEBUG: Executing criteria-based search");
@@ -50,20 +44,16 @@ public class SearchInteractor implements SearchInputBoundary {
             
             // Present results
             if (posts.isEmpty()) {
-                String message = searchInputData.isFuzzy() ? 
-                    "No posts found matching your fuzzy search criteria." :
-                    "No posts found matching your search criteria.";
+                String message = "No posts found matching your search criteria.";
                 searchOutputBoundary.prepareFailView(new SearchOutputData(message));
             } else {
-                String resultType = searchInputData.isFuzzy() ? "fuzzy" : "regular";
-                System.out.println("DEBUG: Found " + posts.size() + " posts using " + resultType + " search");
+                System.out.println("DEBUG: Found " + posts.size() + " posts using regular search");
                 searchOutputBoundary.prepareSuccessView(searchOutputData);
             }
             
         } catch (Exception e) {
-            String searchType = searchInputData.isFuzzy() ? "fuzzy search" : "search";
             searchOutputBoundary.prepareFailView(
-                new SearchOutputData("An error occurred while performing " + searchType + ": " + e.getMessage())
+                new SearchOutputData("An error occurred while performing search: " + e.getMessage())
             );
         }
     }

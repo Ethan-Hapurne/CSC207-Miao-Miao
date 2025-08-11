@@ -63,6 +63,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         // Create the signup card
         JPanel signupCard = createSignupCard();
+        signupCard.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the card
         mainPanel.add(signupCard);
 
         return mainPanel;
@@ -129,10 +130,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
         panel.setMaximumSize(new Dimension(320, 100));
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the entire panel
 
         // Admin checkbox
         isAdminCheckBox.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        isAdminCheckBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+        isAdminCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the checkbox
         
         // Admin code field panel
         JPanel adminCodePanel = createInputPanel("Admin Code", adminCodeField);
@@ -182,12 +184,13 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
         panel.setMaximumSize(new Dimension(320, 80));
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the entire panel
 
         // Label
         JLabel label = new JLabel(labelText);
         label.setFont(new Font("Segoe UI", Font.BOLD, 12));
         label.setForeground(Color.BLACK);
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the label
         label.setBorder(new EmptyBorder(0, 0, 8, 0));
 
         // Input field styling
@@ -198,6 +201,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         ));
         inputField.setMaximumSize(new Dimension(320, 45));
         inputField.setPreferredSize(new Dimension(320, 45));
+        inputField.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the input field
 
         panel.add(label);
         panel.add(inputField);
@@ -210,21 +214,25 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
         panel.setMaximumSize(new Dimension(320, 150));
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the entire panel
 
         // Sign up button
         signUp = createStyledButton("Create Account", new Color(40, 167, 69));
         signUp.setMaximumSize(new Dimension(320, 45));
         signUp.setPreferredSize(new Dimension(320, 45));
+        signUp.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button
 
         // To login button
         toLogin = createStyledButton("Back to Login", new Color(0, 123, 255));
         toLogin.setMaximumSize(new Dimension(320, 45));
         toLogin.setPreferredSize(new Dimension(320, 45));
+        toLogin.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button
 
         // Cancel button
         cancel = createStyledButton("Cancel", new Color(108, 117, 125));
         cancel.setMaximumSize(new Dimension(320, 45));
         cancel.setPreferredSize(new Dimension(320, 45));
+        cancel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button
 
         panel.add(signUp);
         panel.add(Box.createVerticalStrut(10));

@@ -34,7 +34,7 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
     private final String viewName = "dashboard";
     private final DashboardViewModel dashboardViewModel;
     private final JTextField searchField = new JTextField(20);
-    private final JCheckBox fuzzySearchCheckbox = new JCheckBox("Fuzzy Search");
+
     private final JComboBox<String> searchCriteriaDropdown = new JComboBox<>(new String[]{
         "General Search", "Title", "Location", "Tags", "Lost Items", "Found Items"
     });
@@ -138,11 +138,7 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
         ));
         searchField.setPreferredSize(new Dimension(250, 35));
         
-        // Style the fuzzy search checkbox
-        fuzzySearchCheckbox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        fuzzySearchCheckbox.setForeground(new Color(108, 117, 125));
-        fuzzySearchCheckbox.setOpaque(false);
-        fuzzySearchCheckbox.setFocusPainted(false);
+
         
         // Style the search criteria dropdown
         searchCriteriaDropdown.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -155,7 +151,7 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
         searchPanel.add(searchLabel);
         searchPanel.add(searchField);
         searchPanel.add(searchCriteriaDropdown);
-        searchPanel.add(fuzzySearchCheckbox);
+
         searchPanel.add(searchButton);
 
         // Right side - buttons
@@ -178,10 +174,10 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
         searchButton.addActionListener(evt -> {
             if (evt.getSource().equals(searchButton)) {
                 String searchQuery = searchField.getText().trim();
-                boolean isFuzzySearch = fuzzySearchCheckbox.isSelected();
+        
                 String selectedCriteria = (String) searchCriteriaDropdown.getSelectedItem();
                 
-                performCriteriaSearch(searchQuery, selectedCriteria, isFuzzySearch);
+                performCriteriaSearch(searchQuery, selectedCriteria);
             }
         });
 
@@ -1342,7 +1338,7 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
         dialog.setVisible(true);
     }
 
-    private void performCriteriaSearch(String searchQuery, String criteria, boolean isFuzzySearch) {
+    private void performCriteriaSearch(String searchQuery, String criteria) {
         if (searchQuery.isEmpty()) {
             // If no query, load all posts
             dashboardController.loadPosts();
@@ -1352,7 +1348,7 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
         switch (criteria) {
             case "General Search":
                 // Use general search (existing functionality)
-                dashboardController.searchPosts(searchQuery, isFuzzySearch);
+                dashboardController.searchPosts(searchQuery);
                 break;
                 
             case "Title":
@@ -1387,7 +1383,7 @@ public class DashboardView extends JPanel implements PropertyChangeListener {
                 
             default:
                 // Default to general search
-                dashboardController.searchPosts(searchQuery, isFuzzySearch);
+                dashboardController.searchPosts(searchQuery);
                 break;
         }
     }

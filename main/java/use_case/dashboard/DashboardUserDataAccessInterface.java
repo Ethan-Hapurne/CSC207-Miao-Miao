@@ -20,12 +20,7 @@ public interface DashboardUserDataAccessInterface {
      */
     List<Post> searchPosts(String query);
 
-    /**
-     * Performs fuzzy search on posts.
-     * @param query the search query
-     * @return List of matching posts using fuzzy logic
-     */
-    List<Post> fuzzySearch(String query);
+
 
     /**
      * Searches posts by specific criteria.

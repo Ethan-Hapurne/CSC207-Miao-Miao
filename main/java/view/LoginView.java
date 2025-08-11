@@ -62,6 +62,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         // Create the login card
         JPanel loginCard = createLoginCard();
+        loginCard.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the card
         mainPanel.add(loginCard);
 
         return mainPanel;
@@ -118,12 +119,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
         panel.setMaximumSize(new Dimension(320, 80));
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the entire panel
 
         // Label
         JLabel label = new JLabel(labelText);
         label.setFont(new Font("Segoe UI", Font.BOLD, 12));
         label.setForeground(Color.BLACK);
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the label
         label.setBorder(new EmptyBorder(0, 0, 8, 0));
 
         // Input field styling
@@ -134,11 +136,12 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         ));
         inputField.setMaximumSize(new Dimension(320, 45));
         inputField.setPreferredSize(new Dimension(320, 45));
+        inputField.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the input field
 
         // Error label
         errorLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         errorLabel.setForeground(new Color(220, 53, 69));
-        errorLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the error label
         errorLabel.setBorder(new EmptyBorder(5, 0, 0, 0));
 
         panel.add(label);
@@ -153,16 +156,19 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
         panel.setMaximumSize(new Dimension(320, 120));
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the entire panel
 
         // Login button
         logIn = createStyledButton("Sign In", new Color(0, 123, 255));
         logIn.setMaximumSize(new Dimension(320, 45));
         logIn.setPreferredSize(new Dimension(320, 45));
+        logIn.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button
 
         // Cancel button
         cancel = createStyledButton("Cancel", new Color(108, 117, 125));
         cancel.setMaximumSize(new Dimension(320, 45));
         cancel.setPreferredSize(new Dimension(320, 45));
+        cancel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button
 
         // Sign up link
         JLabel signUpLabel = new JLabel("Don't have an account? Click here to sign up");

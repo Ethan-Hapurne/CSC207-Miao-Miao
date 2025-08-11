@@ -20,12 +20,11 @@ public class SearchController {
     }
 
     /**
-     * Executes a basic search with query and fuzzy toggle.
+     * Executes a basic search with query.
      * @param searchQuery the search query entered by the user
-     * @param isFuzzy whether to use fuzzy search
      */
-    public void execute(String searchQuery, boolean isFuzzy) {
-        SearchInputData searchInputData = new SearchInputData(searchQuery, isFuzzy);
+    public void execute(String searchQuery) {
+        SearchInputData searchInputData = new SearchInputData(searchQuery);
         searchInteractor.execute(searchInputData);
     }
 

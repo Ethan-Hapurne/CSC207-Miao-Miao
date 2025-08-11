@@ -59,15 +59,7 @@ public class DashboardController {
         dashboardInteractor.execute(dashboardInputData);
     }
 
-    /**
-     * Searches posts by query with optional fuzzy search.
-     * @param searchQuery the search query
-     * @param isFuzzySearch whether to use fuzzy search
-     */
-    public void searchPosts(String searchQuery, boolean isFuzzySearch) {
-        DashboardInputData dashboardInputData = new DashboardInputData("search_posts", searchQuery, isFuzzySearch);
-        dashboardInteractor.execute(dashboardInputData);
-    }
+
 
     /**
      * Executes advanced search with specific criteria.

@@ -84,8 +84,18 @@ import use_case.dms.DMsInputBoundary;
 import use_case.dms.DMsInteractor;
 import use_case.dms.DMsOutputBoundary;
 import use_case.dms.DMsUserDataAccessInterface;
+import interface_adapter.fuzzy_search.FuzzySearchController;
+import interface_adapter.fuzzy_search.FuzzySearchPresenter;
+import interface_adapter.fuzzy_search.FuzzySearchState;
+import interface_adapter.fuzzy_search.FuzzySearchViewModel;
+import use_case.fuzzy_search.FuzzySearchInputBoundary;
+import use_case.fuzzy_search.FuzzySearchInteractor;
+import use_case.fuzzy_search.FuzzySearchOutputBoundary;
+import use_case.fuzzy_search.FuzzySearchUserDataAccessInterface;
 import data_access.FirebaseChatDataAccessObject;
+
 import view.*;
+import java.awt.Component;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -142,6 +152,9 @@ public class AppBuilder {
     private DeleteUserController deleteUserController;
     private DeleteUserInputBoundary deleteUserUseCaseInteractor;
     private DMsViewModel dmsViewModel;
+    private FuzzySearchViewModel fuzzySearchViewModel;
+    private FuzzySearchController fuzzySearchController;
+    private FuzzySearchInputBoundary fuzzySearchUseCaseInteractor;
 
     public AppBuilder() {
         // Initialize Firebase
@@ -266,6 +279,24 @@ public class AppBuilder {
         // Initially create view with null controller
         deleteUserView = new DeleteUserView(deleteUserViewModel, deleteUserController, viewManagerModel);
         cardPanel.add(deleteUserView, deleteUserView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addFuzzySearchView() {
+        fuzzySearchViewModel = new FuzzySearchViewModel();
+        
+        // Create the use case components first so the view is ready immediately
+        FuzzySearchUserDataAccessInterface fuzzySearchDataAccessObject = firebasePostDataAccessObject;
+        FuzzySearchOutputBoundary fuzzySearchPresenter = new FuzzySearchPresenter(fuzzySearchViewModel);
+        fuzzySearchUseCaseInteractor = new FuzzySearchInteractor(fuzzySearchDataAccessObject, fuzzySearchPresenter);
+        
+        // Create controller with the interactor
+        fuzzySearchController = new FuzzySearchController(fuzzySearchUseCaseInteractor);
+        
+        // Create view with the ready controller
+        FuzzySearchView fuzzySearchView = new FuzzySearchView(fuzzySearchViewModel, fuzzySearchController, viewManagerModel);
+
+        cardPanel.add(fuzzySearchView, fuzzySearchView.viewName);
         return this;
     }
 
@@ -444,6 +475,8 @@ public class AppBuilder {
 
         return this;
     }
+
+
 
 
     /**

@@ -32,14 +32,7 @@ public class DashboardInteractor implements DashboardInputBoundary {
                 case "search_posts":
                     // SESSION CHANGE: If search query is blank, return all posts sorted alphabetically by title
                     if (dashboardInputData.getSearchQuery() != null && !dashboardInputData.getSearchQuery().trim().isEmpty()) {
-                        List<Post> searchResults;
-                        if (dashboardInputData.isFuzzySearch()) {
-                            // Use fuzzy search
-                            searchResults = dashboardDataAccessObject.fuzzySearch(dashboardInputData.getSearchQuery().trim());
-                        } else {
-                            // Use regular search
-                            searchResults = dashboardDataAccessObject.searchPosts(dashboardInputData.getSearchQuery().trim());
-                        }
+                        List<Post> searchResults = dashboardDataAccessObject.searchPosts(dashboardInputData.getSearchQuery().trim());
                         DashboardOutputData searchOutputData = new DashboardOutputData(searchResults);
                         dashboardOutputBoundary.prepareSuccessView(searchOutputData);
                     } else {
