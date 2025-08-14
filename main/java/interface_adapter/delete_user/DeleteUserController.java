@@ -4,25 +4,25 @@ import use_case.deleteUser.DeleteUserInputBoundary;
 import use_case.deleteUser.DeleteUserInputData;
 
 public class DeleteUserController {
-    final DeleteUserInputBoundary deleteUserUseCaseInteractor;
+    final DeleteUserInputBoundary deleteUserInputBoundary;
 
     public DeleteUserController(DeleteUserInputBoundary deleteUserUseCaseInteractor) {
         System.out.println("DEBUG: Creating DeleteUserController with interactor: " + (deleteUserUseCaseInteractor != null));
-        this.deleteUserUseCaseInteractor = deleteUserUseCaseInteractor;
+        this.deleteUserInputBoundary = deleteUserUseCaseInteractor;
     }
 
 
     public void execute(String username) {
         DeleteUserInputData deleteUserInputData = new DeleteUserInputData(username);
-        deleteUserUseCaseInteractor.execute(deleteUserInputData);
+        deleteUserInputBoundary.execute(deleteUserInputData);
     }
 
     public void loadUsers() {
-        System.out.println("DEBUG: loadUsers called, interactor is: " + (deleteUserUseCaseInteractor != null));
-        if (deleteUserUseCaseInteractor == null) {
+        System.out.println("DEBUG: loadUsers called, interactor is: " + (deleteUserInputBoundary != null));
+        if (deleteUserInputBoundary == null) {
             throw new IllegalStateException("DeleteUserInputBoundary not initialized");
         }
-        deleteUserUseCaseInteractor.loadUsers();
+        deleteUserInputBoundary.loadUsers();
     }
 
 }

@@ -72,4 +72,22 @@ public class DMsController {
     public boolean chatExistsBetweenUsers(String user1, String user2) {
         return dMsInputBoundary.chatExistsBetweenUsers(user1, user2);
     }
+
+    /**
+     * Changes the value of isBlocked for a certain chat
+     * @param chatId the ID of the chat
+     * @param isBlocked the boolean for if it is blocked
+     */
+    public void updateChatIsBlocked(String chatId, boolean isBlocked) {
+        dMsInputBoundary.updateChatIsBlocked(chatId, isBlocked);
+    }
+
+    /**
+     * Checks if a chat is blocked.
+     * @param chatId the ID of the chat
+     * @return true if the chat is blocked
+     */
+    public boolean isChatBlocked(String chatId) {
+        return dMsInputBoundary.isChatBlocked(chatId);
+    }
 }

@@ -23,18 +23,40 @@ public class Post {
     private int numberOfLikes;
     private Map<Integer, String> reactions;
     private List<Comment> comments;
+    private boolean resolved;
+    private String resolvedBy;
+    private String creditedTo;
     
-    // Default constructor required for Firebase
+    /**
+     * Default constructor required for Firebase.
+     */
     public Post() {}
     
-    public Post(int postID, String title, String description, List<String> tags, 
-                LocalDateTime timestamp, String author, String location, String imageURL, 
-                boolean isLost, int numberOfLikes, Map<Integer, String> reactions) {
+    /**
+     * Creates a new Post with the specified parameters.
+     * @param postID the unique identifier for the post
+     * @param title the title of the post
+     * @param description the description/content of the post
+     * @param tags the list of tags associated with the post
+     * @param timestamp the timestamp when the post was created
+     * @param author the author of the post
+     * @param location the location associated with the post
+     * @param imageURL the URL of the image associated with the post
+     * @param isLost whether the post is for a lost item (true) or found item (false)
+     * @param numberOfLikes the number of likes on the post
+     * @param reactions the map of reactions on the post
+     */
+    public Post(final int postID, final String title, final String description, 
+                final List<String> tags, final LocalDateTime timestamp, final String author, 
+                final String location, final String imageURL, final boolean isLost, 
+                final int numberOfLikes, final Map<Integer, String> reactions) {
         this.postID = postID;
         this.title = title;
         this.description = description;
         this.tags = tags;
-        this.timestamp = timestamp.format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        this.timestamp = (timestamp != null)
+                ? timestamp.format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                : null;
         this.author = author;
         this.location = location;
         this.imageURL = imageURL;
@@ -43,40 +65,243 @@ public class Post {
         this.reactions = reactions;
     }
     
-    // Getters and setters (required for Firebase)
-    public int getPostID() { return postID; }
-    public void setPostID(int postID) { this.postID = postID; }
+    /**
+     * Gets the post ID.
+     * @return the post ID
+     */
+    public int getPostID() { 
+        return postID; 
+    }
     
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    /**
+     * Sets the post ID.
+     * @param postID the post ID to set
+     */
+    public void setPostID(final int postID) { 
+        this.postID = postID; 
+    }
     
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    /**
+     * Gets the title.
+     * @return the title
+     */
+    public String getTitle() { 
+        return title; 
+    }
     
-    public List<String> getTags() { return tags; }
-    public void setTags(List<String> tags) { this.tags = tags; }
+    /**
+     * Sets the title.
+     * @param title the title to set
+     */
+    public void setTitle(final String title) { 
+        this.title = title; 
+    }
     
-    public String getTimestamp() { return timestamp; }
-    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
+    /**
+     * Gets the description.
+     * @return the description
+     */
+    public String getDescription() { 
+        return description; 
+    }
     
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
+    /**
+     * Sets the description.
+     * @param description the description to set
+     */
+    public void setDescription(final String description) { 
+        this.description = description; 
+    }
     
-    public String getLocation() { return location; }
-    public void setLocation(String location) { this.location = location; }
+    /**
+     * Gets the tags.
+     * @return the tags
+     */
+    public List<String> getTags() { 
+        return tags; 
+    }
     
-    public String getImageURL() { return imageURL; }
-    public void setImageURL(String imageURL) { this.imageURL = imageURL; }
+    /**
+     * Sets the tags.
+     * @param tags the tags to set
+     */
+    public void setTags(final List<String> tags) { 
+        this.tags = tags; 
+    }
     
-    public boolean isLost() { return isLost; }
-    public void setLost(boolean isLost) { this.isLost = isLost; }
+    /**
+     * Gets the timestamp.
+     * @return the timestamp
+     */
+    public String getTimestamp() { 
+        return timestamp; 
+    }
     
-    public int getNumberOfLikes() { return numberOfLikes; }
-    public void setNumberOfLikes(int numberOfLikes) { this.numberOfLikes = numberOfLikes; }
+    /**
+     * Sets the timestamp.
+     * @param timestamp the timestamp to set
+     */
+    public void setTimestamp(final String timestamp) { 
+        this.timestamp = timestamp; 
+    }
     
-    public Map<Integer, String> getReactions() { return reactions; }
-    public void setReactions(Map<Integer, String> reactions) { this.reactions = reactions; }
+    /**
+     * Gets the author.
+     * @return the author
+     */
+    public String getAuthor() { 
+        return author; 
+    }
+    
+    /**
+     * Sets the author.
+     * @param author the author to set
+     */
+    public void setAuthor(final String author) { 
+        this.author = author; 
+    }
+    
+    /**
+     * Gets the location.
+     * @return the location
+     */
+    public String getLocation() { 
+        return location; 
+    }
+    
+    /**
+     * Sets the location.
+     * @param location the location to set
+     */
+    public void setLocation(final String location) { 
+        this.location = location; 
+    }
+    
+    /**
+     * Gets the image URL.
+     * @return the image URL
+     */
+    public String getImageURL() { 
+        return imageURL; 
+    }
+    
+    /**
+     * Sets the image URL.
+     * @param imageURL the image URL to set
+     */
+    public void setImageURL(final String imageURL) { 
+        this.imageURL = imageURL; 
+    }
+    
+    /**
+     * Checks if the post is for a lost item.
+     * @return true if the post is for a lost item, false otherwise
+     */
+    public boolean isLost() { 
+        return isLost; 
+    }
+    
+    /**
+     * Sets whether the post is for a lost item.
+     * @param isLost true if the post is for a lost item, false otherwise
+     */
+    public void setLost(final boolean isLost) { 
+        this.isLost = isLost; 
+    }
+    
+    /**
+     * Gets the number of likes.
+     * @return the number of likes
+     */
+    public int getNumberOfLikes() { 
+        return numberOfLikes; 
+    }
+    
+    /**
+     * Sets the number of likes.
+     * @param numberOfLikes the number of likes to set
+     */
+    public void setNumberOfLikes(final int numberOfLikes) { 
+        this.numberOfLikes = numberOfLikes; 
+    }
+    
+    /**
+     * Gets the reactions.
+     * @return the reactions
+     */
+    public Map<Integer, String> getReactions() { 
+        return reactions; 
+    }
+    
+    /**
+     * Sets the reactions.
+     * @param reactions the reactions to set
+     */
+    public void setReactions(final Map<Integer, String> reactions) { 
+        this.reactions = reactions; 
+    }
 
-    public List<Comment> getComments() { return comments; }
-    public void setComments(List<Comment> comments) { this.comments = comments; }
+    /**
+     * Gets the comments.
+     * @return the comments
+     */
+    public List<Comment> getComments() { 
+        return comments; 
+    }
+    
+    /**
+     * Sets the comments.
+     * @param comments the comments to set
+     */
+    public void setComments(final List<Comment> comments) { 
+        this.comments = comments; 
+    }
+
+    /**
+     * Checks if the post is resolved.
+     * @return true if the post is resolved, false otherwise
+     */
+    public boolean isResolved() { 
+        return resolved; 
+    }
+    
+    /**
+     * Sets whether the post is resolved.
+     * @param resolved true if the post is resolved, false otherwise
+     */
+    public void setResolved(final boolean resolved) { 
+        this.resolved = resolved; 
+    }
+
+    /**
+     * Gets the user who resolved the post.
+     * @return the user who resolved the post
+     */
+    public String getResolvedBy() { 
+        return resolvedBy; 
+    }
+    
+    /**
+     * Sets the user who resolved the post.
+     * @param resolvedBy the user who resolved the post
+     */
+    public void setResolvedBy(final String resolvedBy) { 
+        this.resolvedBy = resolvedBy; 
+    }
+
+    /**
+     * Gets the user credited for the resolution.
+     * @return the user credited for the resolution
+     */
+    public String getCreditedTo() { 
+        return creditedTo; 
+    }
+    
+    /**
+     * Sets the user credited for the resolution.
+     * @param creditedTo the user credited for the resolution
+     */
+    public void setCreditedTo(final String creditedTo) { 
+        this.creditedTo = creditedTo; 
+    }
 } 

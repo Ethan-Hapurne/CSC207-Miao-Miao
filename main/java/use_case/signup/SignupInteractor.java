@@ -1,5 +1,6 @@
 package use_case.signup;
 
+import entity.CommonUser;
 import entity.User;
 import entity.UserFactory;
 
@@ -28,7 +29,9 @@ public class SignupInteractor implements SignupInputBoundary {
             userPresenter.prepareFailView("Passwords don't match.");
         }
         else {
-            final User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), signupInputData.getAdmin());
+            final User user = new CommonUser(signupInputData.getUsername(),
+                    signupInputData.getPassword(),
+                    signupInputData.getAdmin());
             userDataAccessObject.save(user);
 
             final SignupOutputData signupOutputData = new SignupOutputData(user.getName(), false);

@@ -14,7 +14,7 @@ public class DashboardInteractor implements DashboardInputBoundary {
     private final DashboardOutputBoundary dashboardOutputBoundary;
 
     public DashboardInteractor(DashboardUserDataAccessInterface dashboardDataAccessObject,
-                              DashboardOutputBoundary dashboardOutputBoundary) {
+                               DashboardOutputBoundary dashboardOutputBoundary) {
         this.dashboardDataAccessObject = dashboardDataAccessObject;
         this.dashboardOutputBoundary = dashboardOutputBoundary;
     }
@@ -22,7 +22,13 @@ public class DashboardInteractor implements DashboardInputBoundary {
     @Override
     public void execute(DashboardInputData dashboardInputData) {
         try {
-            switch (dashboardInputData.getAction()) {
+            String action = dashboardInputData.getAction();
+            if (action == null) {
+                dashboardOutputBoundary.prepareFailView(new DashboardOutputData("Invalid action."));
+                return;
+            }
+
+            switch (action) {
                 case "load_posts":
                     List<Post> posts = dashboardDataAccessObject.getAllPosts();
                     DashboardOutputData outputData = new DashboardOutputData(posts);
@@ -41,6 +47,18 @@ public class DashboardInteractor implements DashboardInputBoundary {
                         DashboardOutputData allPostsOutputData = new DashboardOutputData(allPosts);
                         dashboardOutputBoundary.prepareSuccessView(allPostsOutputData);
                     }
+                    break;
+
+                case "advanced_search":
+                    // Perform advanced search with specific criteria
+                    List<Post> advancedSearchResults = dashboardDataAccessObject.searchPostsByCriteria(
+                        dashboardInputData.getPostTitle(),     // title
+                        dashboardInputData.getPostLocation(),  // location
+                        dashboardInputData.getPostTags(),      // tags
+                        dashboardInputData.isLost() ? Boolean.TRUE : null  // isLost
+                    );
+                    DashboardOutputData advancedOutputData = new DashboardOutputData(advancedSearchResults);
+                    dashboardOutputBoundary.prepareSuccessView(advancedOutputData);
                     break;
 
                 case "add_post":
@@ -77,6 +95,87 @@ public class DashboardInteractor implements DashboardInputBoundary {
                     }
                     break;
 
+                case "resolve_post":
+                    // Handle resolve post action, allowing "0" to mean no credit
+                    if (dashboardInputData.getResolvedByUsername() == null) {
+                        dashboardOutputBoundary.prepareFailView(new DashboardOutputData("Resolving username is required."));
+                        break;
+                    }
+
+                    // Get the post to be resolved
+                    entity.Post post = dashboardDataAccessObject.getPostById(String.valueOf(dashboardInputData.getPostId()));
+                    if (post == null) {
+                        dashboardOutputBoundary.prepareFailView(new DashboardOutputData("Post not found."));
+                        break;
+                    }
+
+                    // Check if post is already resolved
+                    if (post.isResolved()) {
+                        dashboardOutputBoundary.prepareFailView(new DashboardOutputData("Post is already resolved."));
+                        break;
+                    }
+
+                    String credited = dashboardInputData.getCreditedUsername();
+                    boolean skipCredit = credited != null && credited.trim().equals("0");
+
+                    // Mark post as resolved
+                    post.setResolved(true);
+                    post.setResolvedBy(dashboardInputData.getResolvedByUsername());
+                    post.setCreditedTo(skipCredit ? null : credited);
+
+                    if (skipCredit) {
+                        // Only update the post; no user credit
+                        boolean postUpdated = dashboardDataAccessObject.updatePost(post);
+                        if (postUpdated) {
+                            DashboardOutputData resolvePostOutputData = new DashboardOutputData("Post resolved successfully.", true);
+                            dashboardOutputBoundary.prepareSuccessView(resolvePostOutputData);
+                        } else {
+                            dashboardOutputBoundary.prepareFailView(new DashboardOutputData("Failed to update post in database."));
+                        }
+                    } else {
+                        // Credit the specified user
+                        if (credited == null || credited.trim().isEmpty()) {
+                            dashboardOutputBoundary.prepareFailView(new DashboardOutputData("Credited username is required or type 0 to skip."));
+                            break;
+                        }
+
+                        entity.User creditedUser = dashboardDataAccessObject.getUserByUsername(credited.trim());
+                        if (creditedUser == null) {
+                            dashboardOutputBoundary.prepareFailView(new DashboardOutputData("Credited user not found."));
+                            break;
+                        }
+
+                        creditedUser.addResolvedPost(String.valueOf(dashboardInputData.getPostId()));
+                        creditedUser.addCredibilityPoints(1); // Award 1 point for resolving a post
+
+                        boolean postUpdated = dashboardDataAccessObject.updatePost(post);
+                        boolean userUpdated = dashboardDataAccessObject.updateUser(creditedUser);
+
+                        if (postUpdated && userUpdated) {
+                            String successMessage = String.format(
+                                "Post resolved successfully! %s has been credited with 1 credibility point. New credibility score: %d",
+                                creditedUser.getName(),
+                                creditedUser.getCredibilityScore()
+                            );
+                            dashboardOutputBoundary.prepareSuccessView(new DashboardOutputData(successMessage, true));
+                        } else {
+                            dashboardOutputBoundary.prepareFailView(new DashboardOutputData("Failed to update post or user in database."));
+                        }
+                    }
+                    break;
+
+                case "delete_post":
+                    // Make sure this correctly gets the post ID from the input data
+                    int postIdToDelete = dashboardInputData.getPostId();
+                    boolean deleteSuccess = dashboardDataAccessObject.deletePost(postIdToDelete);
+                    if (deleteSuccess) {
+                        DashboardOutputData deletePostOutputData = new DashboardOutputData("Post deleted successfully!", true);
+                        dashboardOutputBoundary.prepareSuccessView(deletePostOutputData);
+                    } else {
+                        dashboardOutputBoundary.prepareFailView(new DashboardOutputData("Failed to delete post."));
+                    }
+                    break;
+
                 default:
                     dashboardOutputBoundary.prepareFailView(new DashboardOutputData("Invalid action."));
                     break;
@@ -85,4 +184,4 @@ public class DashboardInteractor implements DashboardInputBoundary {
             dashboardOutputBoundary.prepareFailView(new DashboardOutputData("An error occurred: " + e.getMessage()));
         }
     }
-} 
+}

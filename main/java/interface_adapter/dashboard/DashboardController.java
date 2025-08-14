@@ -59,6 +59,21 @@ public class DashboardController {
         dashboardInteractor.execute(dashboardInputData);
     }
 
+
+
+    /**
+     * Executes advanced search with specific criteria.
+     * @param title title to search for
+     * @param location location to search for  
+     * @param tags tags to search for
+     * @param isLost whether to search for lost or found items
+     */
+    public void executeAdvancedSearch(String title, String location, java.util.List<String> tags, Boolean isLost) {
+        // Use a specific action for advanced search that the interactor can handle
+        DashboardInputData dashboardInputData = new DashboardInputData("advanced_search", title, location, tags, isLost);
+        dashboardInteractor.execute(dashboardInputData);
+    }
+
     /**
      * Adds a new post.
      * @param title the post title
@@ -94,6 +109,17 @@ public class DashboardController {
      */
     public void deletePost(int postId) {
         DashboardInputData dashboardInputData = new DashboardInputData("delete_post", postId);
+        dashboardInteractor.execute(dashboardInputData);
+    }
+
+    /**
+     * Resolves a post and credits a user.
+     * @param postId the ID of the post to resolve
+     * @param creditedUsername the username to credit
+     * @param resolvedByUsername the username of the person resolving the post
+     */
+    public void resolvePost(String postId, String creditedUsername, String resolvedByUsername) {
+        DashboardInputData dashboardInputData = new DashboardInputData("resolve_post", postId, creditedUsername, resolvedByUsername);
         dashboardInteractor.execute(dashboardInputData);
     }
 }

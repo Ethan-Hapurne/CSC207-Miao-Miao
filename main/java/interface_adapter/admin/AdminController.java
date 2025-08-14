@@ -13,12 +13,12 @@ import java.util.List;
  */
 public class AdminController {
 
-    private final AdminInputBoundary adminInteractor;
+    private final AdminInputBoundary adminInputBoundary;
     private final ViewManagerModel viewManagerModel;
     private String currentUser; // Add current user tracking
 
     public AdminController(AdminInputBoundary adminInteractor, ViewManagerModel viewManagerModel) {
-        this.adminInteractor = adminInteractor;
+        this.adminInputBoundary = adminInteractor;
         this.viewManagerModel = viewManagerModel;
         this.currentUser = "anonymous"; // Default user
     }
@@ -36,7 +36,7 @@ public class AdminController {
      */
     public void loadPosts() {
         AdminInputData adminInputData = new AdminInputData("load_posts");
-        adminInteractor.execute(adminInputData);
+        adminInputBoundary.execute(adminInputData);
     }
 
     /**
@@ -45,7 +45,7 @@ public class AdminController {
      */
     public void searchPosts(String searchQuery) {
         AdminInputData adminInputData = new AdminInputData("search_posts", searchQuery);
-        adminInteractor.execute(adminInputData);
+        adminInputBoundary.execute(adminInputData);
     }
 
     /**
@@ -58,7 +58,7 @@ public class AdminController {
      */
     public void addPost(String title, String content, List<String> tags, String location, boolean isLost) {
         AdminInputData adminInputData = new AdminInputData("add_post", title, content, tags, location, isLost, currentUser);
-        adminInteractor.execute(adminInputData);
+        adminInputBoundary.execute(adminInputData);
     }
     // Add edit functionality
     public void editPost(String postId, String title, String description,
@@ -69,7 +69,7 @@ public class AdminController {
                       ", Tags: " + tags + ", Location: " + location);
     
         AdminInputData inputData = new AdminInputData("edit_post", postId, title, description, tags, location, isLost, currentUser);
-        adminInteractor.execute(inputData);
+        adminInputBoundary.execute(inputData);
     }
 
     public void deletePost(String postId) {
@@ -85,7 +85,7 @@ public class AdminController {
             System.out.println("AdminController: Creating AdminInputData for delete operation");
             AdminInputData inputData = new AdminInputData("delete_post", postId, true);
             System.out.println("AdminController: Executing delete operation through interactor");
-            adminInteractor.execute(inputData);
+            adminInputBoundary.execute(inputData);
         } catch (Exception e) {
             System.err.println("AdminController: Exception during delete operation: " + e.getMessage());
             e.printStackTrace();

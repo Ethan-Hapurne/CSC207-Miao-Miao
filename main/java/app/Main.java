@@ -15,6 +15,7 @@ public class Main {
                     .addLoggedInView()
                     .addAdminLoggedInView()
                     .addSearchView()
+                    .addAdvancedSearchView()
                     .addDashboardView()
                     .addAdminView()
                     .addAccountView()
@@ -30,6 +31,7 @@ public class Main {
                     .addChangeUsernameUseCase()
                     .addDeletePostUseCase()
                     .addDeleteUserUseCase()
+                    .addFuzzySearchView()
                     .addDMsUseCase();
 
             JFrame application = builder.build();

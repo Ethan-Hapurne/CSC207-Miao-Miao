@@ -5,7 +5,6 @@ import use_case.dms.DMsUserDataAccessInterface;
 import entity.User;
 import entity.Chat;
 import entity.Message;
-import data_access.FirebaseUserDataAccessObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +83,7 @@ public class FirebaseChatDataAccessObject implements DMsUserDataAccessInterface 
 
         String chatId = generateChatId();
         LocalDateTime createdAt = LocalDateTime.now();
-        Chat chat = new Chat(chatId, participants, createdAt);
+        Chat chat = new Chat(chatId, participants, createdAt, false);
 
         System.out.println("DEBUG: About to save chat to Firebase with ID: " + chatId);
 
@@ -247,6 +246,51 @@ public class FirebaseChatDataAccessObject implements DMsUserDataAccessInterface 
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             System.err.println("DEBUG: Error checking chat existence: " + e.getMessage());
             return false;
+        }
+    }
+
+    public void updateChatIsBlocked(String chatId, boolean isBlocked) {
+        System.out.println("\n=== DEBUG: FirebaseChatDataAccessObject.updateChatIsBlocked() called ===");
+        System.out.println("DEBUG: Updating isBlocked for chat: '" + chatId + "' to: " + isBlocked);
+
+        chatsRef.child(chatId).child("blocked").setValue(isBlocked, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    System.err.println("DEBUG: Firebase error updating isBlocked: " + databaseError.getMessage());
+                } else {
+                    System.out.println("DEBUG: Successfully updated isBlocked to " + isBlocked + " for chat " + chatId);
+                }
+            }
+        });
+    }
+
+    public boolean isChatBlocked(String chatId) {
+        System.out.println("\n=== DEBUG: FirebaseChatDataAccessObject.isChatBlocked() called ===");
+        System.out.println("DEBUG: Checking if chat is blocked for ID: " + chatId);
+
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+
+        chatsRef.child(chatId).child("blocked").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean isBlocked = dataSnapshot.getValue(Boolean.class);
+                System.out.println("DEBUG: isBlocked value: " + isBlocked);
+                future.complete(isBlocked != null && isBlocked);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.err.println("DEBUG: Firebase error checking isBlocked: " + databaseError.getMessage());
+                future.completeExceptionally(new RuntimeException("Failed to check isBlocked: " + databaseError.getMessage()));
+            }
+        });
+
+        try {
+            return future.get(5, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            System.err.println("DEBUG: Error checking isBlocked: " + e.getMessage());
+            return false; // or throw an exception, depending on your use case
         }
     }
 }

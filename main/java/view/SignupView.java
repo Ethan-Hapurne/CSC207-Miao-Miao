@@ -21,31 +21,77 @@ import interface_adapter.ViewManagerModel;
  * The View for the Signup Use Case.
  */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "sign up";
-
+    
+    // Constants for magic numbers
+    private static final int TEXT_FIELD_COLUMNS = 20;
+    private static final int CARD_WIDTH = 400;
+    private static final int CARD_HEIGHT = 600;
+    private static final int BORDER_SIZE = 1;
+    private static final int PADDING_30 = 30;
+    private static final int PADDING_40 = 40;
+    private static final int PADDING_50 = 50;
+    private static final int FONT_SIZE_14 = 14;
+    private static final int FONT_SIZE_28 = 28;
+    private static final int BUTTON_HEIGHT = 40;
+    private static final int BUTTON_WIDTH = 120;
+    private static final int MIN_PASSWORD_LENGTH = 8;
+    private static final int STRONG_PASSWORD_LENGTH = 12;
+    
+    // Color constants
+    private static final Color LIGHT_GRAY_BACKGROUND = new Color(248, 249, 250);
+    private static final Color WHITE_COLOR = Color.WHITE;
+    private static final Color BLACK_COLOR = Color.BLACK;
+    private static final Color GRAY_BORDER = new Color(200, 200, 200);
+    private static final Color PRIMARY_BLUE = new Color(0, 123, 255);
+    private static final Color SUCCESS_GREEN = new Color(40, 167, 69);
+    private static final Color DANGER_RED = new Color(220, 53, 69);
+    private static final Color WARNING_ORANGE = new Color(255, 193, 7);
+    private static final Color SECONDARY_GRAY = new Color(108, 117, 125);
+    
+    // String constants
+    private static final String VIEW_NAME = "sign up";
+    private static final String ADMIN_CODE = "csc207";
+    private static final String ADMIN_CHECKBOX_TEXT = "Sign up as Admin";
+    private static final String TITLE_TEXT = "Create Account";
+    private static final String SUBTITLE_TEXT = "Join our community today";
+    private static final String USERNAME_LABEL = "Username";
+    private static final String PASSWORD_LABEL = "Password";
+    private static final String REPEAT_PASSWORD_LABEL = "Repeat Password";
+    private static final String ADMIN_CODE_LABEL = "Admin Code";
+    private static final String SIGNUP_BUTTON_TEXT = "Sign Up";
+    private static final String CANCEL_BUTTON_TEXT = "Cancel";
+    private static final String LOGIN_BUTTON_TEXT = "Already have an account? Login";
+    private static final String FONT_NAME = "Segoe UI";
+    
     private final SignupViewModel signupViewModel;
     private final ViewManagerModel viewManagerModel;
-    private final JTextField usernameInputField = new JTextField(20);
-    private final JPasswordField passwordInputField = new JPasswordField(20);
-    private final JPasswordField repeatPasswordInputField = new JPasswordField(20);
+    private final JTextField usernameInputField = new JTextField(TEXT_FIELD_COLUMNS);
+    private final JPasswordField passwordInputField = new JPasswordField(TEXT_FIELD_COLUMNS);
+    private final JPasswordField repeatPasswordInputField = new JPasswordField(TEXT_FIELD_COLUMNS);
     private SignupController signupController;
     // ... existing fields ...
-    private final JTextField adminCodeField = new JTextField(20);
-    private final JCheckBox isAdminCheckBox = new JCheckBox("Sign up as Admin");
-    private static final String ADMIN_CODE = "csc207";
+    private final JTextField adminCodeField = new JTextField(TEXT_FIELD_COLUMNS);
+    private final JCheckBox isAdminCheckBox = new JCheckBox(ADMIN_CHECKBOX_TEXT);
+    private static final String ADMIN_CODE_CONSTANT = ADMIN_CODE;
 
     private JButton signUp;
     private JButton cancel;
     private JButton toLogin;
 
-    public SignupView(SignupViewModel signupViewModel, ViewManagerModel viewManagerModel) {
+    /**
+     * Creates a new SignupView.
+     * @param signupViewModel the view model for signup
+     * @param viewManagerModel the view manager model
+     */
+    public SignupView(final SignupViewModel signupViewModel, 
+                     final ViewManagerModel viewManagerModel) {
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
         signupViewModel.addPropertyChangeListener(this);
 
         // Set up the main panel with modern styling
         this.setLayout(new BorderLayout());
-        this.setBackground(new Color(248, 249, 250)); // Light gray background
+        this.setBackground(LIGHT_GRAY_BACKGROUND);
 
         // Create the main content panel
         JPanel mainContentPanel = createMainContentPanel();
@@ -55,52 +101,61 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         setupActionListeners();
     }
 
+    /**
+     * Creates the main content panel.
+     * @return the main content panel
+     */
     private JPanel createMainContentPanel() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setOpaque(false);
-        mainPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
+        mainPanel.setBorder(new EmptyBorder(PADDING_50, PADDING_50, PADDING_50, PADDING_50));
 
         // Create the signup card
         JPanel signupCard = createSignupCard();
+        signupCard.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the card
         mainPanel.add(signupCard);
 
         return mainPanel;
     }
 
+    /**
+     * Creates the signup card panel.
+     * @return the signup card panel
+     */
     private JPanel createSignupCard() {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setBackground(Color.WHITE);
+        card.setBackground(WHITE_COLOR);
         card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
-            new EmptyBorder(40, 40, 40, 40)
+            BorderFactory.createLineBorder(GRAY_BORDER, BORDER_SIZE),
+            new EmptyBorder(PADDING_40, PADDING_40, PADDING_40, PADDING_40)
         ));
-        card.setMaximumSize(new Dimension(400, 600));
-        card.setPreferredSize(new Dimension(400, 600));
+        card.setMaximumSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
+        card.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
 
         // Title with modern styling
-        JLabel title = new JLabel("Create Account");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        title.setForeground(Color.BLACK);
+        JLabel title = new JLabel(TITLE_TEXT);
+        title.setFont(new Font(FONT_NAME, Font.BOLD, FONT_SIZE_28));
+        title.setForeground(BLACK_COLOR);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title.setBorder(new EmptyBorder(0, 0, 30, 0));
+        title.setBorder(new EmptyBorder(0, 0, PADDING_30, 0));
 
         // Subtitle
-        JLabel subtitle = new JLabel("Join our community today");
-        subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        subtitle.setForeground(Color.BLACK);
+        JLabel subtitle = new JLabel(SUBTITLE_TEXT);
+        subtitle.setFont(new Font(FONT_NAME, Font.PLAIN, FONT_SIZE_14));
+        subtitle.setForeground(BLACK_COLOR);
         subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        subtitle.setBorder(new EmptyBorder(0, 0, 30, 0));
+        subtitle.setBorder(new EmptyBorder(0, 0, PADDING_30, 0));
 
         // Username field
-        JPanel usernamePanel = createInputPanel("Username", usernameInputField);
+        JPanel usernamePanel = createInputPanel(USERNAME_LABEL, usernameInputField);
         
         // Password field
-        JPanel passwordPanel = createInputPanel("Password", passwordInputField);
+        JPanel passwordPanel = createInputPanel(PASSWORD_LABEL, passwordInputField);
         
         // Repeat password field
-        JPanel repeatPasswordPanel = createInputPanel("Confirm Password", repeatPasswordInputField);
+        JPanel repeatPasswordPanel = createInputPanel(REPEAT_PASSWORD_LABEL, repeatPasswordInputField);
 
         // Create admin section panel
         JPanel adminPanel = createAdminPanel();
@@ -129,13 +184,14 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
         panel.setMaximumSize(new Dimension(320, 100));
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the entire panel
 
         // Admin checkbox
-        isAdminCheckBox.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        isAdminCheckBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+        isAdminCheckBox.setFont(new Font(FONT_NAME, Font.BOLD, 12));
+        isAdminCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the checkbox
         
         // Admin code field panel
-        JPanel adminCodePanel = createInputPanel("Admin Code", adminCodeField);
+        JPanel adminCodePanel = createInputPanel(ADMIN_CODE_LABEL, adminCodeField);
         adminCodePanel.setVisible(false);  // Initially hidden
 
         // Add listener to checkbox to control adminCodePanel visibility
@@ -182,22 +238,24 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
         panel.setMaximumSize(new Dimension(320, 80));
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the entire panel
 
         // Label
         JLabel label = new JLabel(labelText);
-        label.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        label.setForeground(Color.BLACK);
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setFont(new Font(FONT_NAME, Font.BOLD, 12));
+        label.setForeground(BLACK_COLOR);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the label
         label.setBorder(new EmptyBorder(0, 0, 8, 0));
 
         // Input field styling
-        inputField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        inputField.setFont(new Font(FONT_NAME, Font.PLAIN, 14));
         inputField.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(new Color(206, 212, 218), 1),
             new EmptyBorder(12, 15, 12, 15)
         ));
         inputField.setMaximumSize(new Dimension(320, 45));
         inputField.setPreferredSize(new Dimension(320, 45));
+        inputField.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the input field
 
         panel.add(label);
         panel.add(inputField);
@@ -210,21 +268,25 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
         panel.setMaximumSize(new Dimension(320, 150));
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the entire panel
 
         // Sign up button
-        signUp = createStyledButton("Create Account", new Color(40, 167, 69));
+        signUp = createStyledButton(SIGNUP_BUTTON_TEXT, SUCCESS_GREEN);
         signUp.setMaximumSize(new Dimension(320, 45));
         signUp.setPreferredSize(new Dimension(320, 45));
+        signUp.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button
 
         // To login button
-        toLogin = createStyledButton("Back to Login", new Color(0, 123, 255));
+        toLogin = createStyledButton("Back to Login", PRIMARY_BLUE);
         toLogin.setMaximumSize(new Dimension(320, 45));
         toLogin.setPreferredSize(new Dimension(320, 45));
+        toLogin.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button
 
         // Cancel button
-        cancel = createStyledButton("Cancel", new Color(108, 117, 125));
+        cancel = createStyledButton(CANCEL_BUTTON_TEXT, SECONDARY_GRAY);
         cancel.setMaximumSize(new Dimension(320, 45));
         cancel.setPreferredSize(new Dimension(320, 45));
+        cancel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button
 
         panel.add(signUp);
         panel.add(Box.createVerticalStrut(10));
@@ -237,8 +299,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     private JButton createStyledButton(String text, Color backgroundColor) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        button.setForeground(Color.BLACK);
+        button.setFont(new Font(FONT_NAME, Font.BOLD, 14));
+        button.setForeground(BLACK_COLOR);
         button.setBackground(backgroundColor);
         button.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(backgroundColor.darker(), 1),
@@ -277,7 +339,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     // Check admin code if trying to sign up as admin
                     if (isAdminCheckBox.isSelected()) {
                         String enteredCode = adminCodeField.getText();
-                        if (!ADMIN_CODE.equals(enteredCode)) {
+                        if (!ADMIN_CODE_CONSTANT.equals(enteredCode)) {
                             JOptionPane.showMessageDialog(
                                 SignupView.this,
                                 "Invalid admin code.",
@@ -465,7 +527,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     }
 
     public String getViewName() {
-        return viewName;
+        return VIEW_NAME;
     }
 
     public void setSignupController(SignupController controller) {

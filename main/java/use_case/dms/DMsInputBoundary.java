@@ -1,6 +1,5 @@
 package use_case.dms;
 
-import use_case.dms.DMsInputData;
 import entity.User;
 
 /**
@@ -46,4 +45,18 @@ public interface DMsInputBoundary {
      * @return true if a chat exists between these users, false otherwise
      */
     boolean chatExistsBetweenUsers(String user1, String user2);
+
+    /**
+     * Changes the value of isBlocked for a certain chat.
+     * @param chatId the ID of the chat
+     * @param isBlocked the boolean for if it is blocked
+     */
+    void updateChatIsBlocked(String chatId, boolean isBlocked);
+
+    /**
+     * Checks if a chat is blocked.
+     * @param chatId the ID of the chat
+     * @return true if the chat is blocked
+     */
+    boolean isChatBlocked(String chatId);
 }

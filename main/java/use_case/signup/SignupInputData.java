@@ -18,6 +18,11 @@ public class SignupInputData {
         this.admin = admin;
     }
 
+    // Backward-compatible constructor (defaults admin to false)
+    public SignupInputData(String username, String password, String repeatPassword) {
+        this(username, password, repeatPassword, false);
+    }
+
     String getUsername() {
         return username;
     }

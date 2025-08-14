@@ -24,11 +24,5 @@ public interface SearchUserDataAccessInterface {
      */
     List<Post> searchPostsByCriteria(String title, String location, List<String> tags, Boolean isLost);
 
-    /**
-     * Performs fuzzy search on posts based on the query.
-     * Includes typo tolerance and synonym expansion.
-     * @param query the fuzzy query
-     * @return List of fuzzy-matched posts
-     */
-    List<Post> fuzzySearch(String query);
+
 }

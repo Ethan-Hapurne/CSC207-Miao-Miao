@@ -158,4 +158,25 @@ public class DMsInteractor implements DMsInputBoundary {
             return false;
         }
     }
+
+    @Override
+    public void updateChatIsBlocked(String chatId, boolean isBlocked) {
+        try {
+            dmsUserDataAccessInterface.updateChatIsBlocked(chatId, isBlocked);
+        } catch (Exception e) {
+            System.err.println("DEBUG: Error blocking chat: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean isChatBlocked(String chatId) {
+        try{
+            return dmsUserDataAccessInterface.isChatBlocked(chatId);
+        } catch (Exception e) {
+            System.err.println("DEBUG: Error accessing chat details: " + e.getMessage());
+            return false;
+        }
+    }
+
+
 }

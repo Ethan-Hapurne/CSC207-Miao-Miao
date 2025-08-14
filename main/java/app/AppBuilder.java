@@ -84,8 +84,18 @@ import use_case.dms.DMsInputBoundary;
 import use_case.dms.DMsInteractor;
 import use_case.dms.DMsOutputBoundary;
 import use_case.dms.DMsUserDataAccessInterface;
+import interface_adapter.fuzzy_search.FuzzySearchController;
+import interface_adapter.fuzzy_search.FuzzySearchPresenter;
+import interface_adapter.fuzzy_search.FuzzySearchState;
+import interface_adapter.fuzzy_search.FuzzySearchViewModel;
+import use_case.fuzzy_search.FuzzySearchInputBoundary;
+import use_case.fuzzy_search.FuzzySearchInteractor;
+import use_case.fuzzy_search.FuzzySearchOutputBoundary;
+import use_case.fuzzy_search.FuzzySearchUserDataAccessInterface;
 import data_access.FirebaseChatDataAccessObject;
+
 import view.*;
+import java.awt.Component;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -125,6 +135,7 @@ public class AppBuilder {
     private LoginView loginView;
     private SearchView searchView;
     private SearchViewModel searchViewModel;
+    private AdvancedSearchView advancedSearchView;
     private DashboardView dashboardView;
     private DashboardViewModel dashboardViewModel;
     private AccountView accountView;
@@ -141,6 +152,9 @@ public class AppBuilder {
     private DeleteUserController deleteUserController;
     private DeleteUserInputBoundary deleteUserUseCaseInteractor;
     private DMsViewModel dmsViewModel;
+    private FuzzySearchViewModel fuzzySearchViewModel;
+    private FuzzySearchController fuzzySearchController;
+    private FuzzySearchInputBoundary fuzzySearchUseCaseInteractor;
 
     public AppBuilder() {
         // Initialize Firebase
@@ -156,6 +170,10 @@ public class AppBuilder {
     public AppBuilder addSignupView() {
         signupViewModel = new SignupViewModel();
         signupView = new SignupView(signupViewModel, viewManagerModel);
+        
+        // Set the component name to match the viewName
+        signupView.setName("sign up");
+        
         cardPanel.add(signupView, signupView.getViewName());
         return this;
     }
@@ -167,6 +185,10 @@ public class AppBuilder {
     public AppBuilder addLoginView() {
         loginViewModel = new LoginViewModel();
         loginView = new LoginView(loginViewModel, viewManagerModel);
+        
+        // Set the component name to match the viewName
+        loginView.setName("log in");
+        
         cardPanel.add(loginView, loginView.getViewName());
         return this;
     }
@@ -189,6 +211,10 @@ public class AppBuilder {
     public AppBuilder addAdminLoggedInView() {
         adminloggedInViewModel = new AdminLoggedInViewModel();
         adminloggedInView = new AdminLoggedInView(adminloggedInViewModel, viewManagerModel);
+        
+        // Set the component name to match the viewName
+        adminloggedInView.setName("admin logged in");
+        
         cardPanel.add(adminloggedInView, adminloggedInView.getViewName());
         return this;
     }
@@ -200,7 +226,28 @@ public class AppBuilder {
     public AppBuilder addSearchView() {
         searchViewModel = new SearchViewModel();
         searchView = new SearchView(searchViewModel);
+        
+        // Set the component name to match the viewName
+        searchView.setName("search");
+        
         cardPanel.add(searchView, searchView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Advanced Search View to the application.
+     * @return this builder
+     */
+    public AppBuilder addAdvancedSearchView() {
+        if (searchViewModel == null) {
+            searchViewModel = new SearchViewModel();
+        }
+        advancedSearchView = new AdvancedSearchView(searchViewModel);
+        
+        // Set the component name to match the viewName
+        advancedSearchView.setName("advanced search");
+        
+        cardPanel.add(advancedSearchView, advancedSearchView.getViewName());
         return this;
     }
 
@@ -211,14 +258,22 @@ public class AppBuilder {
     public AppBuilder addDashboardView() {
         dashboardViewModel = new DashboardViewModel();
         dashboardView = new DashboardView(dashboardViewModel);
+        
+        // Set the component name to match the viewName
+        dashboardView.setName("dashboard");
+        
         cardPanel.add(dashboardView, dashboardView.getViewName());
         return this;
     }
 
     public AppBuilder addAdminView() {
         adminViewModel = new AdminViewModel();
-
         adminView = new AdminView(adminViewModel);
+        
+        // Make sure the view component itself has a name
+        adminView.setName("admin");
+        
+        // Add the view to the card panel with the view name from getViewName()
         cardPanel.add(adminView, adminView.getViewName());
         return this;
     }
@@ -241,6 +296,10 @@ public class AppBuilder {
     public AppBuilder addDMsView() {
         dmsViewModel = new DMsViewModel();
         dmsView = new DMsView(viewManagerModel, dmsViewModel);
+        
+        // Set the component name to match the viewName
+        dmsView.setName("dms");
+        
         cardPanel.add(dmsView, dmsView.getViewName());
         return this;
     }
@@ -252,6 +311,27 @@ public class AppBuilder {
         // Initially create view with null controller
         deleteUserView = new DeleteUserView(deleteUserViewModel, deleteUserController, viewManagerModel);
         cardPanel.add(deleteUserView, deleteUserView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addFuzzySearchView() {
+        fuzzySearchViewModel = new FuzzySearchViewModel();
+        
+        // Create the use case components first so the view is ready immediately
+        FuzzySearchUserDataAccessInterface fuzzySearchDataAccessObject = firebasePostDataAccessObject;
+        FuzzySearchOutputBoundary fuzzySearchPresenter = new FuzzySearchPresenter(fuzzySearchViewModel);
+        fuzzySearchUseCaseInteractor = new FuzzySearchInteractor(fuzzySearchDataAccessObject, fuzzySearchPresenter);
+        
+        // Create controller with the interactor
+        fuzzySearchController = new FuzzySearchController(fuzzySearchUseCaseInteractor);
+        
+        // Create view with the ready controller
+        FuzzySearchView fuzzySearchView = new FuzzySearchView(fuzzySearchViewModel, fuzzySearchController, viewManagerModel);
+        
+        // Set the component name to match the viewName
+        fuzzySearchView.setName("fuzzy search");
+        
+        cardPanel.add(fuzzySearchView, fuzzySearchView.viewName);
         return this;
     }
 
@@ -335,6 +415,11 @@ public class AppBuilder {
         final SearchInputBoundary searchInteractor = new SearchInteractor(postDataAccessObject, searchOutputBoundary);
         final SearchController searchController = new SearchController(searchInteractor, viewManagerModel);
         searchView.setSearchController(searchController);
+        
+        // Also set the controller for AdvancedSearchView if it exists
+        if (advancedSearchView != null) {
+            advancedSearchView.setSearchController(searchController);
+        }
         return this;
     }
 
@@ -389,7 +474,17 @@ public class AppBuilder {
         final DMsInputBoundary dMsInteractor = new DMsInteractor(dmsDataAccessObject, dMsOutputBoundary);
         final DMsController dMsController = new DMsController(dMsInteractor);
         dmsView.setDMsController(dMsController);
-        loggedInView.setDMsView(dmsView);
+        
+        // Only set DMsView if loggedInView exists
+        if (loggedInView != null) {
+            loggedInView.setDMsView(dmsView);
+        }
+        
+        // Only set DMsView if adminloggedInView exists
+        if (adminloggedInView != null) {
+            adminloggedInView.setDMsView(dmsView);
+        }
+        
         return this;
     }
 
@@ -426,6 +521,8 @@ public class AppBuilder {
     }
 
 
+
+
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
      * @return the application
@@ -437,7 +534,18 @@ public class AppBuilder {
         application.add(cardPanel);
 
         viewManagerModel.setMainFrame(application);
-        viewManagerModel.pushView(signupView.getViewName());
+        
+        // Choose an initial view to display
+        if (signupView != null) {
+            viewManagerModel.pushView(signupView.getViewName());
+        } else if (loginView != null) {
+            viewManagerModel.pushView(loginView.getViewName());
+        } else if (dashboardView != null) {
+            viewManagerModel.pushView(dashboardView.getViewName());
+        } else if (adminView != null) {
+            viewManagerModel.pushView(adminView.getViewName());
+        }
+        // If none of the above views exist, don't push any view
 
         return application;
     }

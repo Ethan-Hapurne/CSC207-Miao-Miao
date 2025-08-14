@@ -4,52 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cee90c25-e7e9-472e-92f4-eb352449f6c4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/main/java/data_access/SearchDataAccessMemory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/java/use_case/search/util/FuzzyMatchHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/java/use_case/search/util/FuzzyMatcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/java/use_case/search/util/SynonymExpander.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/change_password/ChangePasswordInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/change_username/ChangeUsernameInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/dashboard/DashboardInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/login/LoginInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/logout/LogoutInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/search/SearchInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/java/app/use_case/signup/SignupInteractorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CSC207-Miao-Miao.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/homework-5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/homework-5.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/data_access/APIPostDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/data_access/APIPostDataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/data_access/FirebasePostDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/data_access/FirebasePostDataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/interface_adapter/search/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/interface_adapter/search/SearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/use_case/search/SearchInputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/use_case/search/SearchInputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/use_case/search/SearchUserDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/use_case/search/SearchUserDataAccessInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/view/SearchView.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/view/SearchView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/APIPostDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/APIPostDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebasePostDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/FirebaseUserDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/InMemoryUserDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/InMemoryUserDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapter/search/SearchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapter/search/SearchController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/search/SearchInputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/use_case/search/SearchInputData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/search/SearchUserDataAccessInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/use_case/search/SearchUserDataAccessInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/LoggedInView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/LoggedInView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/LoginView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/SearchView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/SearchView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/SearchView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/SearchView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    <list default="true" id="cee90c25-e7e9-472e-92f4-eb352449f6c4" name="Changes" comment="update project configurations: switch to JDK 17 (Corretto) and add CheckStyle-IDEA module settings">
+      <change afterPath="$PROJECT_DIR$/test/java/app/AppBuilderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/java/app/MainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/app/AppBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/view/AdminView.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/view/AdminView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,22 +26,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Scarlett-Z-Best"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Scarlett-Z-Best&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Ethan-Hapurne/CSC207-Miao-Miao",
-    "accountId": "00777ed4-e665-42cd-b94d-7ef97d764813"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Ethan-Hapurne/CSC207-Miao-Miao.git&quot;,
+    &quot;accountId&quot;: &quot;6a6c9e71-93ff-427e-86d0-790598c62bf9&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="30QzN4olb8YPK9MwOpebEKQ2t67" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -89,28 +52,143 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
+    "JUnit.AccountViewTest.executor": "Coverage",
+    "JUnit.AdminLoggedInViewTest.executor": "Coverage",
+    "JUnit.AdminViewTest.executor": "Coverage",
+    "JUnit.AdvancedSearchViewTest.executor": "Coverage",
+    "JUnit.AppBuilderTest.executor": "Run",
     "JUnit.ChangePasswordInteractorTest.executor": "Run",
     "JUnit.ChangeUsernameInteractorTest.executor": "Run",
+    "JUnit.DMsInteractorTest (1).executor": "Coverage",
+    "JUnit.DMsInteractorTest.executor": "Coverage",
+    "JUnit.DMsViewTest.executor": "Coverage",
     "JUnit.DashboardInteractorTest.executor": "Run",
+    "JUnit.DashboardViewTest.executor": "Coverage",
+    "JUnit.DeleteUserControllerTest.executor": "Coverage",
+    "JUnit.DeleteUserViewTest.executor": "Coverage",
+    "JUnit.FirebaseChatDataAccessObjectTest.executor": "Coverage",
+    "JUnit.FuzzyMatchHelperTest.executor": "Coverage",
+    "JUnit.FuzzySearchInteractorTest.executor": "Coverage",
+    "JUnit.FuzzySearchViewTest.executor": "Coverage",
+    "JUnit.LabelTextPanelTest.executor": "Coverage",
+    "JUnit.LoggedInViewTest.executor": "Coverage",
     "JUnit.LoginInteractorTest.executor": "Run",
+    "JUnit.LoginViewTest.executor": "Coverage",
     "JUnit.LogoutInteractorTest.executor": "Run",
-    "JUnit.SearchInteractorTest.executor": "Run",
+    "JUnit.MainTest.executor": "Run",
+    "JUnit.ResolvePostInteractorTest.executor": "Run",
+    "JUnit.SearchInteractorTest.executor": "Coverage",
+    "JUnit.SearchViewTest.executor": "Coverage",
     "JUnit.SignupInteractorTest.executor": "Run",
+    "JUnit.SignupViewTest.executor": "Coverage",
+    "JUnit.ViewManagerTest.executor": "Coverage",
+    "JUnit.app in homework-5.executor": "Coverage",
+    "JUnit.test in homework-5.executor": "Coverage",
+    "JUnit.use_case in homework-5.executor": "Coverage",
+    "JUnit.view in homework-5 (1).executor": "Coverage",
+    "JUnit.view in homework-5.executor": "Coverage",
     "Maven.homework-5 [clean].executor": "Run",
     "Maven.homework-5 [compile].executor": "Run",
+    "Maven.homework-5 [install,-DforkCount=0...].executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "add-fuzzy-search"
+    "git-widget-placeholder": "#17 on main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.test in homework-5">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="app.Main" />
+      <module name="homework-5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FuzzySearchViewTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="homework-5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="view" />
+      <option name="MAIN_CLASS_NAME" value="view.FuzzySearchViewTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SearchViewTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="homework-5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="view" />
+      <option name="MAIN_CLASS_NAME" value="view.SearchViewTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app in homework-5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="homework-5" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/test/java/app" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test in homework-5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="homework-5" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="CSC207-Miao-Miao" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.test in homework-5" />
+        <item itemvalue="JUnit.app in homework-5" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.SearchViewTest" />
+        <item itemvalue="JUnit.FuzzySearchViewTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -119,7 +197,126 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1753574543181</updated>
+      <workItem from="1754865454320" duration="1071000" />
+      <workItem from="1754866887581" duration="754000" />
     </task>
+    <task id="LOCAL-00001" summary="update project configurations: switch to JDK 17 (Corretto) and add CheckStyle-IDEA module settings">
+      <option name="closed" value="true" />
+      <created>1755102965940</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1755102965940</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add comprehensive unit tests for DeleteUserInteractor and DMsInteractor: cover all functions including deleting users, loading users, managing chats, and sending messages; handle edge cases like null inputs and database errors; utilize mocks and argument captors for thorough verification" />
+    <MESSAGE value="update project configurations: switch to JDK 17 (Corretto) and add CheckStyle-IDEA module settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="update project configurations: switch to JDK 17 (Corretto) and add CheckStyle-IDEA module settings" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/test/java/use_case/resolve_post/ResolvePostInteractorTest.java</url>
+          <line>232</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$data_access_in_homework_5.ic" NAME="data_access in homework-5 Coverage Results" MODIFIED="1755048704842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$view_in_homework_5__1_.ic" NAME="view in homework-5 (1) Coverage Results" MODIFIED="1755066521835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$DeleteUserViewTest.ic" NAME="DeleteUserViewTest Coverage Results" MODIFIED="1755065657322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$FuzzySearchInteractorTest.ic" NAME="FuzzySearchInteractorTest Coverage Results" MODIFIED="1755097739252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.fuzzy_search.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$LoggedInViewTest.ic" NAME="LoggedInViewTest Coverage Results" MODIFIED="1755056781816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$LabelTextPanelTest.ic" NAME="LabelTextPanelTest Coverage Results" MODIFIED="1755057259371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$DMsInteractorTest__1_.ic" NAME="DMsInteractorTest (1) Coverage Results" MODIFIED="1755060277928" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.dms.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$view_in_homework_5.ic" NAME="view in homework-5 Coverage Results" MODIFIED="1755064217142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$signup_in_homework_5.ic" NAME="signup in homework-5 Coverage Results" MODIFIED="1755050073072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$LoginInteractorTest.ic" NAME="LoginInteractorTest Coverage Results" MODIFIED="1755049561653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.login.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$dms_in_homework_5.ic" NAME="dms in homework-5 Coverage Results" MODIFIED="1755067251944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$AdvancedSearchViewTest.ic" NAME="AdvancedSearchViewTest Coverage Results" MODIFIED="1755052026048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$SearchViewTest.ic" NAME="SearchViewTest Coverage Results" MODIFIED="1754927065769" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$LoginViewTest.ic" NAME="LoginViewTest Coverage Results" MODIFIED="1755057556132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$FirebaseChatDataAccessObjectTest.ic" NAME="FirebaseChatDataAccessObjectTest Coverage Results" MODIFIED="1755039381944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>data_access.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$use_case_in_homework_5.ic" NAME="use_case in homework-5 Coverage Results" MODIFIED="1755066990285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$DashboardViewTest.ic" NAME="DashboardViewTest Coverage Results" MODIFIED="1755065059877" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$DMsViewTest.ic" NAME="DMsViewTest Coverage Results" MODIFIED="1755047390320" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$test_in_homework_5.ic" NAME="test in homework-5 Coverage Results" MODIFIED="1755102975493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$DashboardInteractorTest.ic" NAME="DashboardInteractorTest Coverage Results" MODIFIED="1755065802590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.dashboard.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$dashboard_in_homework_5.ic" NAME="dashboard in homework-5 Coverage Results" MODIFIED="1755066170932" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$AdminViewTest.ic" NAME="AdminViewTest Coverage Results" MODIFIED="1755066358703" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$FuzzyMatchHelperTest.ic" NAME="FuzzyMatchHelperTest Coverage Results" MODIFIED="1755097752317" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.fuzzy_search.util.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$app_in_homework_5.ic" NAME="app in homework-5 Coverage Results" MODIFIED="1755105627347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$LogoutInteractorTest.ic" NAME="LogoutInteractorTest Coverage Results" MODIFIED="1755049769674" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.logout.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$SignupViewTest.ic" NAME="SignupViewTest Coverage Results" MODIFIED="1754927354827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$DeleteUserControllerTest.ic" NAME="DeleteUserControllerTest Coverage Results" MODIFIED="1755056644422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$deleteUser_in_homework_5.ic" NAME="deleteUser in homework-5 Coverage Results" MODIFIED="1755066564725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$ViewManagerTest.ic" NAME="ViewManagerTest Coverage Results" MODIFIED="1755058479090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$FirebasePostDataAccessObjectTest.ic" NAME="FirebasePostDataAccessObjectTest Coverage Results" MODIFIED="1755048640784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>data_access.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$AccountViewTest.ic" NAME="AccountViewTest Coverage Results" MODIFIED="1755047800427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$FuzzySearchViewTest.ic" NAME="FuzzySearchViewTest Coverage Results" MODIFIED="1755057183814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$DMsInteractorTest.ic" NAME="DMsInteractorTest Coverage Results" MODIFIED="1755059243408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.dms.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$SearchInteractorTest.ic" NAME="SearchInteractorTest Coverage Results" MODIFIED="1755097774445" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.search.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CSC207_Miao_Miao$AdminLoggedInViewTest.ic" NAME="AdminLoggedInViewTest Coverage Results" MODIFIED="1755050547133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>view.*</FILTER>
+    </SUITE>
   </component>
 </project>

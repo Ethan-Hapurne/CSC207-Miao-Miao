@@ -15,6 +15,11 @@ public class ChangePasswordInputData {
         this.admin = admin;
     }
 
+    // Backward-compatible constructor (defaults admin to false)
+    public ChangePasswordInputData(String password, String username) {
+        this(password, username, false);
+    }
+
     String getPassword() {
         return password;
     }

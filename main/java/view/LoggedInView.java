@@ -22,6 +22,7 @@ import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.dashboard.DashboardController;
+import view.DMsView;
 
 /**
  * The View for when the user is logged into the program.
@@ -40,9 +41,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private JLabel username;
 
     private JButton dashboardButton;
-    private JButton searchButton;
     private JButton accountButton;
     private JButton dmsButton;
+    private JButton fuzzySearchButton;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel) {
         this.loggedInViewModel = loggedInViewModel;
@@ -79,8 +80,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBackground(Color.WHITE);
         card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
-            new EmptyBorder(40, 40, 40, 40)
+                BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
+                new EmptyBorder(40, 40, 40, 40)
         ));
         card.setMaximumSize(new Dimension(500, 400));
         card.setPreferredSize(new Dimension(500, 400));
@@ -125,25 +126,24 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         // Create a grid of buttons (2x2)
         JPanel buttonGrid = new JPanel(new GridLayout(2, 2, 15, 15));
         buttonGrid.setOpaque(false);
-        buttonGrid.setMaximumSize(new Dimension(400, 150));
+        buttonGrid.setMaximumSize(new Dimension(600, 150));
 
         // Style the buttons
         dashboardButton = createStyledButton("Dashboard", new Color(0, 123, 255));
-        searchButton = createStyledButton("Search by Criteria", new Color(40, 167, 69));
         accountButton = createStyledButton("Account", new Color(255, 193, 7));
         dmsButton = createStyledButton("DMs", new Color(220, 53, 69));
+        fuzzySearchButton = createStyledButton("Fuzzy Search", new Color(40, 167, 69));
 
         // Set button sizes
         Dimension buttonSize = new Dimension(180, 50);
         dashboardButton.setPreferredSize(buttonSize);
-        searchButton.setPreferredSize(buttonSize);
         accountButton.setPreferredSize(buttonSize);
         dmsButton.setPreferredSize(buttonSize);
 
         buttonGrid.add(dashboardButton);
-        buttonGrid.add(searchButton);
         buttonGrid.add(accountButton);
         buttonGrid.add(dmsButton);
+        buttonGrid.add(fuzzySearchButton);
 
         panel.add(buttonGrid);
 
@@ -156,8 +156,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         button.setForeground(Color.BLACK);
         button.setBackground(backgroundColor);
         button.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(backgroundColor.darker(), 1),
-            BorderFactory.createEmptyBorder(10, 20, 10, 20)
+                BorderFactory.createLineBorder(backgroundColor.darker(), 1),
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
         button.setFocusPainted(false);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -167,15 +167,15 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(backgroundColor.darker());
                 button.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(backgroundColor.darker().darker(), 1),
-                    BorderFactory.createEmptyBorder(10, 20, 10, 20)
+                        BorderFactory.createLineBorder(backgroundColor.darker().darker(), 1),
+                        BorderFactory.createEmptyBorder(10, 20, 10, 20)
                 ));
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 button.setBackground(backgroundColor);
                 button.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(backgroundColor.darker(), 1),
-                    BorderFactory.createEmptyBorder(10, 20, 10, 20)
+                        BorderFactory.createLineBorder(backgroundColor.darker(), 1),
+                        BorderFactory.createEmptyBorder(10, 20, 10, 20)
                 ));
             }
         });
@@ -195,12 +195,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             }
         });
 
-        searchButton.addActionListener(evt -> {
-            if (evt.getSource().equals(searchButton)) {
-                viewManagerModel.pushView("search");
-            }
-        });
-
         accountButton.addActionListener(evt -> {
             if (evt.getSource().equals(accountButton)) {
                 viewManagerModel.pushView("account");
@@ -213,6 +207,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     dmsView.setCurrentUsername(username.getText());
                 }
                 viewManagerModel.pushView("dms");
+            }
+        });
+
+        fuzzySearchButton.addActionListener(evt -> {
+            if (evt.getSource().equals(fuzzySearchButton)) {
+                viewManagerModel.pushView("fuzzy search");
             }
         });
     }

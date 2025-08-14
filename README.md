@@ -1,157 +1,179 @@
-# CSC207-Miao-Miao
-* Franz - user story
+# ** CSC207 Group 8 - MIAO MIAO – Lost & Found System**
 
-Project Specification for Group # 8
+## **Authors & Contributors**
+- Yipeng Zhao
+- Xiaotong Shen
+- Ethan Hapurne
+- Franz Shi
+- Ya-Chun Ho  
 
-[see additional instructions on Quercus for filling in all parts of the blueprint]
+---
 
-Team Name: miao miao/nyan nyanz
+## **Summary**
+**Purpose:**  
+This project is a **Lost & Found system** with real-time posting, account management, admin features, fuzzy searching and direct messaging (DM) features, inspired by platforms like Piazza but enhanced with location-based search, tag filtering, and credibility systems.  
 
-Domain:
+**Why it was made:**  
+To create a more efficient and community-driven way for people to report, find, and return lost items in a university or public setting.  
 
-[Establish what the domain is and what the broad purpose of your proposed software will be — this can be quite brief]
+**Problem solved:**  
+- Centralizes lost & found communication.  
+- Reduces time to match lost items with owners.  
+- Encourages engagement via a reward and credibility system.  
 
+---
 
+## **Table of Contents**
+1. [Features](#features)
+2. [Technology Stack](#technology-stack)
+3. [Project Structure](#project-structure)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [License](#license)
+7. [Feedback](#feedback)
+8. [Contributing](#contributing)
 
-Lost and found system with real time post and chat features
+---
 
-Lost item finding app (piazza) + more features
-Chatting (DM)
+## **Features**
+- **Lost & Found Posting:**  
+  Post lost or found items with tags (e.g., “wallet”, “airpods”) and general location.
+- **Search & Filters:**  
+  Search by tag, keyword, location, or time. Includes fuzzy search for typos and related terms.
+- **Comment System:**  
+  Comment under posts to provide updates or information.
+- **Direct Messaging (DM):**  
+  Private chat between users to arrange returns.
+- **User Blocking:**  
+  Block unwanted messages from specific users.
+- **Admin Tools:**  
+  Delete/edit posts, manage users, handle harassment reports.
+- **Data Persistence:**  
+  Uses Firebase APIs to store posts, comments, and chat history.
 
+## **Technology Stack**
+- **Backend:** Java 17 with Clean Architecture pattern
+- **Build Tool:** Maven
+- **Database:** Firebase (Firestore & Authentication)
+- **Testing:** JUnit 5 with Mockito
+- **Code Coverage:** JaCoCo
+- **Architecture:** MVC pattern with Interface Adapters
 
-Software Specification:
+## **Project Structure**
+```
+CSC207-Miao-Miao/
+├── main/java/
+│   ├── app/                 # Main application entry point
+│   ├── data_access/         # Firebase data access layer
+│   ├── entity/              # Domain entities (User, Post, Chat, etc.)
+│   ├── interface_adapter/   # Controllers, Presenters, ViewModels
+│   ├── use_case/            # Business logic and use cases
+│   └── view/                # UI components and views
+├── test/java/               # Test files mirroring main structure
+├── resources/               # Configuration files and Firebase credentials
+├── pom.xml                  # Maven configuration and dependencies
+└── README.md               # This file
+```
 
-[In plain English, what should the program be able to do (not how should it do it)]
+**Key Components:**
+- **Use Cases:** Core business logic (login, signup, search, etc.)
+- **Interface Adapters:** Controllers and presenters for UI interaction
+- **Data Access:** Firebase integration for persistence
+- **Views:** Swing-based user interface components
 
-[think in terms of nouns and verbs, which will map onto variables and methods in the program]
+---
 
-General piazza functions (post, comment, react, etc)  
-User posts lost object, tagging items (e.g. “airpods”, “wallet”) and selecting general location
-Search function (or.. In turn... tags such as ‘airpods’, etc)
-Commenting under posts
-Direct messaging (DM) between users
-Reward system for the users that find the item
-Potential ranking system
-Storing posts and chat history using an external API
-Time decay/visibility changes (older posts slowly get deleted)
+## **Installation**
+### Requirements
+- **Java Version:** Java 17 (OpenJDK 17.0.16 or later)
+- **Maven:** Version 3.6.0 or later (for dependency management and building)
+- **Dependencies:**
+    - Firebase Auth REST API (Docs: https://firebase.google.com/docs/reference/rest/auth)
+    - Cloud Firestore REST API (Docs: https://firebase.google.com/docs/firestore/use-rest-api)
 
+### Steps
+1. **Clone this repository:**
+   ```bash
+   git clone https://github.com/Ethan-Hapurne/CSC207-Miao-Miao.git
+   cd CSC207-Miao-Miao
+   ```
 
-User Stories:
+2. **Verify Java 17 is installed:**
+   ```bash
+   java -version
+   # Should show Java 17.x.x
+   ```
+   
+   **Note:** This project requires Java 17 specifically. If you have multiple Java versions installed, ensure JAVA_HOME points to Java 17:
+   ```bash
+   export JAVA_HOME=/path/to/java17
+   export PATH=$JAVA_HOME/bin:$PATH
+   ```
 
-[statements of interactions between the user and the system]
+3. **Build the project:**
+   ```bash
+   mvn clean compile
+   ```
 
-[see additional instructions on Quercus]
+4. **Run tests (optional but recommended):**
+   ```bash
+   mvn test
+   ```
 
-[aim for at least one user story per group member + 1 extra; in the table below, each group member must be assigned to one user story + mark one user story as being a team user story — this one should be the one that is most central to the basic functionality of your system. That is, the one you would probably want to implement first.]
+5. **Run the main application:**
+   - **Option A - From command line:**
+     ```bash
+     mvn exec:java -Dexec.mainClass="app.Main"
+     ```
+   - **Option B - From IDE:**
+     - Open the project in your preferred IDE (IntelliJ IDEA, Eclipse, VS Code)
+     - Locate `main/java/app/Main.java`
+     - Run the `Main` class
 
-Team Story:
+---
 
-[Team story]: Alex loses his wallet in the library and posts in the “Lost” section with tags "wallet" and "library." Another user comments information about the lost item. A third user sends a private message to Alex, saying that the item was found.
-[Yipeng's story]: Sam finds an AirPods case and posts it in the "Found" section. He enters the location as "Science Wing" and adds a photo.
-[Xiaotong's story]: Jamie searches for "water bottle" and finds a matching post. She sends a DM to the user to confirm if it's hers.
-[Ethan’s story]: Jim receives an unwanted DM from another user on the platform and then blocks the other user to no longer receive messages from them.
-[Franz’s story]: An admin user sees an unwanted post on the site, and deletes the post to keep the community free from these issues.
-[Rex’s story]: Adem finds the lost item from a post on the way home and gets $30 as a reward from the person who lost it.
+## **Usage**
+1. **Register/Login:** Create an account with email and password.  
+2. **Post Lost/Found Item:** Include description, tags, and location.  
+3. **Search:** Use keyword, location, or tag filters to find items.  
+4. **Comment:** Provide updates or tips under a post.  
+5. **Direct Message:** Privately message a user.  
+6. **Admin Actions:**  
+   - Remove/edit posts.  
+   - Block harassing users.  
 
+---
 
-TA Comments:
+## **License**
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Search functionality (regex?) can be sort by time or location or user or tag or etc. Depends on how complicated the function you guys want to implement
-Render photo in Java is doable or not? Need to check
-Admin functions (manage users, delete posts, change contents)
-Post check piazza to see the functions  
-Things like edit post, duplicate, status ...
+---
 
+## **Feedback**
+### How to Provide Feedback
+- **GitHub Issues:**  
+  Go to the "Issues" tab of this repository and click "New Issue."  
+  Clearly describe your suggestion, bug, or question.
 
-Proposed Entities for the Domain:
+### Feedback Guidelines
+- Be respectful and constructive.
+- For bug reports, include:
+    1. Steps to reproduce the issue
+    2. Expected result
+    3. Actual result
+    4. Screenshots (if applicable)
+- For feature requests, explain:
+    - The problem it solves
+    - Why it would be useful
 
-[based on your specification, indicate a few potential entities for your domain — including their names and instance variables]
+---
 
-
-User:  
-userID: int
-username: String
-
-password: String
-posts: List<int>
-comments: List<int>
-chats: List<int>
-points: int
-rating: float
-userType: String
-
-potential
-profilePictureURL: String
-
-
-
-POST:  
-postID: int
-postType: Boolean
-title: String
-description: String
-tags: List<String>
-timestamp: LocalDateTime
-author: User
-comments: List<int>
-numberOfLikes: int
-reactions: Map<userID: int, reactionID: int>
-itemsPictureURL: String
-
-
-
-COMMENT:
-commentID: String
-content: String
-author: User
-numberOfLikes: int
-
-
-
-Reaction:
-
-reactionID: String
-
-reaction
-
-————
-
-Chat/DM features:
-chatID: int
-user1ID: int
-user2ID: int
-messages: List<int>
-
-Message:
-
-messageID: int
-messageContent: String
-timeStamp: LocalDateTime
-
-
-
-Proposed API for the project:
-
-[links to one or more APIs your team plans to make use of; include brief notes about what services the API provides and whether you have successfully tried calling the API]
-
-Firebase Auth REST API: https://firebase.google.com/docs/reference/rest/auth
-- useful for the authentication of the user
-
-Cloud Firestore REST API: https://firebase.google.com/docs/firestore/use-rest-api
-- useful for storing data that is used inside the app, e.g. posts, users, comments etc.
-
-TA Comments:
-
-AI API for advanced search functionality
-Adding admin feature for difficulty (like a different subclass of user??? )  
-Scheduled Meeting Times + Mode of Communication:
-
-[when will your team meet each week — you MUST meet during the weekly tutorial timeslot and we strongly recommend scheduling one more regular meeting time]
-
-Meeting time outside of lab: [indicate day and time here]
-
-Thursday 8-10
-
-Mode of Communication: [indicate mode of communication here]
-
-discord 
+## **Contributing**
+- Fork the repository.  
+- Create a new branch for your feature:
+  ```bash
+  git checkout -b feature-name
+  ```
+- Submit a pull request with:
+  - A clear description of changes.
+  - Screenshots if applicable.

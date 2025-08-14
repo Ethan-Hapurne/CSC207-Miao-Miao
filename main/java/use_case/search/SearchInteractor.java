@@ -24,10 +24,13 @@ public class SearchInteractor implements SearchInputBoundary {
             
             // Check if we're doing a simple query search or criteria search
             if (searchInputData.getQuery() != null && !searchInputData.getQuery().trim().isEmpty()) {
-                // Simple query search
-                posts = searchDataAccessObject.searchPosts(searchInputData.getQuery().trim());
+                String query = searchInputData.getQuery().trim();
+                
+                System.out.println("DEBUG: Executing regular search for query: " + query);
+                posts = searchDataAccessObject.searchPosts(query);
             } else {
                 // Criteria-based search
+                System.out.println("DEBUG: Executing criteria-based search");
                 posts = searchDataAccessObject.searchPostsByCriteria(
                     searchInputData.getTitle(),
                     searchInputData.getLocation(),
@@ -41,13 +44,17 @@ public class SearchInteractor implements SearchInputBoundary {
             
             // Present results
             if (posts.isEmpty()) {
-                searchOutputBoundary.prepareFailView(new SearchOutputData("No posts found matching your search criteria."));
+                String message = "No posts found matching your search criteria.";
+                searchOutputBoundary.prepareFailView(new SearchOutputData(message));
             } else {
+                System.out.println("DEBUG: Found " + posts.size() + " posts using regular search");
                 searchOutputBoundary.prepareSuccessView(searchOutputData);
             }
             
         } catch (Exception e) {
-            searchOutputBoundary.prepareFailView(new SearchOutputData("An error occurred while searching: " + e.getMessage()));
+            searchOutputBoundary.prepareFailView(
+                new SearchOutputData("An error occurred while performing search: " + e.getMessage())
+            );
         }
     }
-} 
+}
